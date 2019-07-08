@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id = "@+id/main_img"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main"
+        android:scaleType="centerCrop"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.6"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:padding="16dp"
+        android:text="DRIVERAPP"
+        android:textColor="#fff"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#80000000"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Driver app"
+        android:fontFamily="sans-serif"
+        android:textSize="24sp"
+        android:textColor="#333"
+        android:padding="16dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/main_img"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:id="@+id/btn_google_signin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.75"
+
+        app:icon="@drawable/ic_btn_google_light"
+        app:iconPadding="0dp"
+        app:iconTint="@null"
+        app:cornerRadius="2dp"
+
+        android:text="Sign in with Google"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
+        android:padding="0dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        android:backgroundTint="#4285F4"
+        />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_signin"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.36"
+
+
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+
+
+        android:text="Sign in"
+        android:textColor="#064780"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
+
+        app:cornerRadius="2dp"
+        app:layout_constraintStart_toStartOf="@+id/btn_google_signin"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google_signin"
+        app:strokeColor="#064780"
+        app:strokeWidth="1dp"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_register"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintWidth_percent="0.36"
+
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+
+        android:backgroundTint="#064780"
+        android:text="Register"
+        android:textColor="#fff"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif-medium"
+
+        app:cornerRadius="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_google_signin"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google_signin" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

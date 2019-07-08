@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:foreground="?android:attr/selectableItemBackground"
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constr_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="8dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="8dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pickup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:scrollHorizontally="true"
+            android:text="Calea Calarasi 75"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/directions_img"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLength="20"
+            android:text="Calea Calarasi 75"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/directions_img"
+            app:layout_constraintTop_toBottomOf="@+id/pickup" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/customer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Roman Gherta"
+            android:textColor="#999999"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/destination"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pickup" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/directions_img"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+
+            android:src="@drawable/ic_directions_black_24dp"
+            android:tint="#666"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.appcompat.widget.AppCompatImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:background="#ccc" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

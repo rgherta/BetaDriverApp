@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.ride.driverapp.RegViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Registration.RegistrationExtraActivity">
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+            android:tint="#333"
+            android:padding="16dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_driver_city"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="8dp"
+            android:hint="City of residence"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.8"
+
+            app:endIconTint="#4C8B55"
+            app:errorEnabled="true"
+            android:validation='@{"city"}'
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_driver_city_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:inputType="text"
+                android:text="@={vm.regCity}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_driver_vehicle"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Vehicle Model"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver_city"
+            app:layout_constraintWidth_percent="0.8"
+
+            app:endIconTint="#4C8B55"
+            app:errorEnabled="true"
+            android:validation='@{"vehicle"}'
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_driver_vehicle_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:inputType="text"
+                android:text="@={vm.regVehicle}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_driver_plate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Registration Plate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver_vehicle"
+            app:layout_constraintWidth_percent="0.8"
+
+            app:endIconTint="#4C8B55"
+            app:errorEnabled="true"
+            android:validation='@{"plate"}'
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_driver_plate_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:inputType="text"
+                android:text="@={vm.regPlate}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_driver_ppk"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Pay per Km"
+            app:layout_constraintStart_toStartOf="@id/txt_driver_plate"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver_plate"
+            app:layout_constraintWidth_percent="0.45"
+
+            app:endIconTint="#4C8B55"
+            app:errorEnabled="true"
+            android:validation='@{"ppk"}'
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_driver_ppk_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:inputType="numberDecimal"
+                android:text="@={vm.regPpk}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_driver_cur"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Currency"
+            app:layout_constraintEnd_toEndOf="@id/txt_driver_plate"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver_plate"
+            app:layout_constraintWidth_percent="0.3"
+
+            app:endIconTint="#4C8B55"
+            app:errorEnabled="true"
+            >
+
+
+            <AutoCompleteTextView
+                android:editable="false"
+                android:id="@+id/txt_driver_cur_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="@={vm.regCurr}"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sw_driver_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vm.regPayCash}"
+
+            android:text="Accept Cash"
+            app:layout_constraintEnd_toEndOf="@id/txt_driver_cur"
+            app:layout_constraintTop_toBottomOf="@id/txt_driver_cur"
+            app:useMaterialThemeColors="false" />
+
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/sw_driver_paypal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="@={vm.regPayPal}"
+
+            android:text="Accept Paypal"
+            app:layout_constraintEnd_toEndOf="@id/sw_driver_cash"
+            app:layout_constraintTop_toBottomOf="@id/sw_driver_cash"
+            app:useMaterialThemeColors="false" />
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="Registration"
+
+            app:layout_constraintTop_toBottomOf="@id/sw_driver_paypal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="#064780"
+            android:textAllCaps="false"
+
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

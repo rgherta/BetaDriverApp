@@ -1,0 +1,13 @@
+<resources>
+    <string name="pref_file">com.ride.driverapp</string>
+    <string name="app_name">Driver App</string>
+    <string name="activity_name_registration">Registration Activity</string>
+    <string name="activity_name_customlogin">Custom Login</string>
+    <string name="activity_name_resetpassword">Reset Password</string>
+    <string name="activity_name_rideslist">My Rides</string>
+    <string-array name="curr_array">
+        <item>RON</item>
+        <item>EUR</item>
+        <item>USD</item>
+    </string-array>
+</resources>
