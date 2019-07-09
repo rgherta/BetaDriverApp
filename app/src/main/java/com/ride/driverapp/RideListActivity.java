@@ -131,11 +131,9 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         mMap.getUiSettings().setRotateGesturesEnabled(false);
 
 
-        viewModel.getAdapterItem().observe(this, position -> {
+        viewModel.getAdapterItem().observe(this, myRide -> {
 
-            RideContract ride = ridesArray.get(position);
-            Log.w(TAG, "clicked: " + ride.toString());
-            List<LatLng> pointsArray = PolyUtil.decode( ride.getPoints() );
+            List<LatLng> pointsArray = PolyUtil.decode( myRide.getPoints() );
 
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for(LatLng poi : pointsArray){

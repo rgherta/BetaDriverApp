@@ -73,6 +73,30 @@
         </androidx.cardview.widget.CardView>
 
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/duration"
+            app:layout_constraintStart_toStartOf="@id/map_info"
+            android:layout_marginLeft="8dp"
+            android:text="@{vm.getDistance()}"
+            android:textColor="#3F3F3F"
+            android:textSize="24dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/map_info"
+            app:layout_constraintStart_toStartOf="@id/map_info"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="8dp"
+            android:text="@{vm.getDuration()}"
+            android:textColor="#3F3F3F"
+            android:textSize="24dp"
+            />
 
 
     <androidx.recyclerview.widget.RecyclerView

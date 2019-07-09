@@ -31,7 +31,7 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
         public TextView pickup;
         public TextView customer;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, ArrayList<RideContract> rideList) {
             super(itemView);
 
                 destination = itemView.findViewById(R.id.destination);
@@ -41,7 +41,7 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
                 itemView.setOnClickListener(v -> {
                     int adapterPosition = getAdapterPosition();
                     Log.w(TAG, "clicked: " + adapterPosition);
-                    viewModel.setAdapterItem(adapterPosition);
+                    viewModel.setAdapterItem(rideList.get(adapterPosition));
                 });
 
         }
@@ -61,7 +61,7 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
         // create a new view
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.ride_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, this.mDataset);
     }
 
     @Override

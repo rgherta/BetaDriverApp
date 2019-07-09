@@ -26,6 +26,12 @@ public class RideContract {
     @SerializedName("points")
     private String points;
 
+    @SerializedName("distance")
+    private int distance;
+
+    @SerializedName("duration")
+    private int duration;
+
     @SerializedName("destination_str")
     private String destinationStr;
 
@@ -47,6 +53,22 @@ public class RideContract {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public int getDistance() {
+        return distance;
+    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public String getDestinationStr() {
@@ -127,6 +149,8 @@ public class RideContract {
                 , this.getCustomer_name(), this.getPickup().toString()
                 , this.getDestination().toString()
                 , this.getPoints()
+                , String.valueOf( this.getDistance() )
+                , String.valueOf( this.getDuration() )
                 , String.valueOf(this.getPayment()), String.valueOf(this.getStatus())
                 , this.getDriver()
                 , this.getDestinationStr()

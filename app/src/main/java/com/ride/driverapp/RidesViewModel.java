@@ -1,6 +1,7 @@
 package com.ride.driverapp;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -29,7 +30,10 @@ public class RidesViewModel extends AndroidViewModel {
     private RidesRepository ridesRepository;
     private IApiService apiService;
 
-    private MutableLiveData<Integer> adapterItem = new MutableLiveData<>();
+    private MutableLiveData<RideContract> adapterItem = new MutableLiveData<>();
+
+    private MutableLiveData<String> duration = new MutableLiveData<>();
+    private MutableLiveData<String> distance = new MutableLiveData<>();
 
 
     public RidesViewModel(@NonNull Application application) {
@@ -39,27 +43,51 @@ public class RidesViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<Integer> getAdapterItem() {
+    public MutableLiveData<RideContract> getAdapterItem() {
         return adapterItem;
     }
 
-    public void setAdapterItem(int adapterItem) {
+    public void setAdapterItem(RideContract adapterItem) {
         Log.w(TAG, "clicked: " + adapterItem);
         this.getAdapterItem().setValue(adapterItem);
+
+        String distanceVal = TextUtils.concat(String.valueOf( Math.round ( adapterItem.getDistance() / 1000) ), " km").toString();
+        String durationVal;
+        if(adapterItem.getDistance() > 3600){
+            durationVal = TextUtils.concat(String.valueOf( Math.round( adapterItem.getDistance() / 3600) ), " h").toString();
+        } else {
+            durationVal = TextUtils.concat(String.valueOf( Math.round( adapterItem.getDistance() )  ), " min").toString();
+        }
+
+
+        this.getDistance().setValue( distanceVal );
+        this.getDuration().setValue( durationVal );
     }
 
+
+    public MutableLiveData<String> getDuration() {
+        return duration;
+    }
+
+    public void setDuration(MutableLiveData<String> duration) {
+        this.duration = duration;
+    }
+
+    public MutableLiveData<String> getDistance() {
+        return distance;
+    }
+
+    public void setDistance(MutableLiveData<String> distance) {
+        this.distance = distance;
+    }
 
     public MutableLiveData<Integer> getRegStatus() {
         return ridesRepository.getRegStatus();
     }
 
-
     public ArrayList<String> getStatusArray() {
         return ridesRepository.getStatusArray();
     }
-
-
-    //implement endpoint
     public void setRegStatus(int status){
         ridesRepository.getRegStatus().postValue(status);
     }
