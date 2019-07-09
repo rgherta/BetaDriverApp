@@ -6,7 +6,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +19,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
@@ -28,7 +31,7 @@ import com.ride.driverapp.databinding.ActivityRideListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideListActivity extends TrackingActivity implements OnMapReadyCallback, View.OnClickListener {
+public class RideListActivity extends TrackingActivity implements OnMapReadyCallback {
 
     private static final String TAG = RegViewModel.class.getSimpleName();
 
@@ -62,6 +65,9 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         mapView = findViewById(R.id.map_info);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
+
+
+
 
 
     }
@@ -114,12 +120,10 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-        }
-
+    public void openDrawer(View v){
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        drawerLayout.openDrawer(GravityCompat.END);
     }
 
     @Override
@@ -132,6 +136,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
 
         viewModel.getAdapterItem().observe(this, myRide -> {
+            mMap.clear();
 
             List<LatLng> pointsArray = PolyUtil.decode( myRide.getPoints() );
 

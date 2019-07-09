@@ -11,14 +11,21 @@
             type="com.ride.driverapp.RidesViewModel" />
     </data>
 
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         tools:context=".RideListActivity">
-
-
-
 
 
     <com.google.android.gms.maps.MapView
@@ -37,22 +44,21 @@
         />
 
 
-
-
-
         <androidx.cardview.widget.CardView
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/status"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
             app:cardCornerRadius="24dp"
 
-            android:layout_marginTop="12dp"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintHeight_percent="0.1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-            >
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4">
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/driver_status_value"
@@ -62,15 +68,30 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
 
-                android:textSize="8dp"
-                android:textAlignment="center"
-                android:spinnerMode="dialog"
                 android:selection="@={vm.getRegStatus}"
+                android:spinnerMode="dialog"
+                android:textAlignment="center"
+                android:textSize="8dp"
 
                 />
 
 
         </androidx.cardview.widget.CardView>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+
+            android:layout_marginRight="24dp"
+            android:src="@drawable/ic_menu_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/status"
+            android:onClick="openDrawer"
+            >
+
+        </androidx.appcompat.widget.AppCompatImageView>
 
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -118,4 +139,20 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            app:menu="@menu/drawer_view"
+            app:headerLayout="@layout/nav_header"
+            />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
