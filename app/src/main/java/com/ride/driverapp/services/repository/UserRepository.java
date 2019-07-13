@@ -1,12 +1,20 @@
 package com.ride.driverapp.services.repository;
 
+import android.app.Application;
+
 import androidx.lifecycle.MutableLiveData;
+
+import java.lang.ref.WeakReference;
 
 public class UserRepository {
 
     //singleton code
     private static UserRepository instance;
-    private UserRepository(){}
+
+    private UserRepository(){
+
+    }
+
     public static synchronized UserRepository getInstance(){
         if(instance == null){
             instance = new UserRepository();

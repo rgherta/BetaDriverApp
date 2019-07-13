@@ -25,7 +25,7 @@ public class RidesRepository {
     private IApiService apiService;
     private MutableLiveData<Integer> regStatus = new MutableLiveData<Integer>();
     private MutableLiveData<ArrayList<RideContract>> rides = new MutableLiveData<>();
-    private WeakReference<Application> application;
+    private final WeakReference<Application> application;
 
 
     public RidesRepository(Application application){

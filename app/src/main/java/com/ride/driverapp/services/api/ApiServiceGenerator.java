@@ -48,7 +48,7 @@ public class ApiServiceGenerator {
             //.build();
 
 
-    public static <S> S createService(Class<S> serviceClass, Context ctx) {
+    public static synchronized  <S> S createService(Class<S> serviceClass, Context ctx) {
 
         //TODO: no need for context https://stackoverflow.com/questions/13558550/can-i-get-data-from-shared-preferences-inside-a-service
 
