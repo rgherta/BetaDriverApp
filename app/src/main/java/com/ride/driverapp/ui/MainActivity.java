@@ -1,26 +1,16 @@
-package com.ride.driverapp;
+package com.ride.driverapp.ui;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.pm.PackageInfoCompat;
-
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.ride.driverapp.Base.TrackingActivity;
-import com.ride.driverapp.Registration.CustomLoginActivity;
-import com.ride.driverapp.Registration.RegistrationActivity;
+import com.ride.driverapp.R;
+import com.ride.driverapp.ui.base.TrackingActivity;
+import com.ride.driverapp.ui.registration.CustomLoginActivity;
+import com.ride.driverapp.ui.registration.RegistrationActivity;
 
 public class MainActivity extends TrackingActivity implements View.OnClickListener {
 

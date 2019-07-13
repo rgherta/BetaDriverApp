@@ -1,4 +1,4 @@
-package com.ride.driverapp;
+package com.ride.driverapp.viewmodel;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -12,7 +12,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.ride.driverapp.Repository.UserRepository;
+import com.ride.driverapp.R;
+import com.ride.driverapp.services.repository.UserRepository;
 
 import java.util.regex.Pattern;
 

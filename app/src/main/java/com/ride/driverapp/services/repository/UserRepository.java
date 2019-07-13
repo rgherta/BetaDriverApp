@@ -1,14 +1,6 @@
-package com.ride.driverapp.Repository;
-
-import android.content.SharedPreferences;
-import android.util.Log;
+package com.ride.driverapp.services.repository;
 
 import androidx.lifecycle.MutableLiveData;
-
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.ride.driverapp.R;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class UserRepository {
 

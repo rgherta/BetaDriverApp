@@ -1,11 +1,19 @@
-package com.ride.driverapp.Entities;
+package com.ride.driverapp.model;
+
+import androidx.annotation.NonNull;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.HashMap;
 
+@Entity(tableName = "driver_table")
 public class DriverContract {
 
+    @PrimaryKey
+    @NonNull
     @SerializedName("uid")
     private String uid;
 
@@ -39,6 +47,7 @@ public class DriverContract {
     @SerializedName("cur")
     private String curr;
 
+    @Embedded(prefix = "pay_")
     @SerializedName("payment")
     private HashMap<String, Boolean> payment;
 
@@ -51,6 +60,7 @@ public class DriverContract {
     @SerializedName("status")
     private int status;
 
+    @Embedded(prefix = "loc_")
     @SerializedName("loc")
     private HashMap<String,Double> loc;
 
@@ -185,7 +195,9 @@ public class DriverContract {
         this.loc = loc;
     }
 
-    public DriverContract(String uid, String fcmToken, String fullName, int category, String email, String carModel, String regPlate, String phone, HashMap<String, Boolean> payment, String city, Double ppk, String cur, int raiting, int rides, int status, HashMap<String, Double> loc ) {
+
+    public DriverContract(String uid, String fcmToken, String fullName, int category, String email, String carModel, String regPlate, String phone
+            , HashMap<String, Boolean> payment, String city, Double ppk, String curr, int rating, int rides, int status, HashMap<String, Double> loc ) {
         this.uid = uid;
         this.fcmToken = fcmToken;
         this.fullName = fullName;
@@ -197,10 +209,14 @@ public class DriverContract {
         this.payment = payment;
         this.city = city;
         this.ppk = ppk;
-        this.curr = cur;
-        this.rating = raiting;
+        this.curr = curr;
+        this.rating = rating;
         this.rides = rides;
         this.status = status;
         this.loc = loc;
     }
+
+
+
+
 }

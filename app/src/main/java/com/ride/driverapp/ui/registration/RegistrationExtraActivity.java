@@ -1,11 +1,9 @@
-package com.ride.driverapp.Registration;
+package com.ride.driverapp.ui.registration;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +13,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.ride.driverapp.Base.TrackingActivity;
-import com.ride.driverapp.Entities.DriverContract;
-import com.ride.driverapp.MainActivity;
+import com.ride.driverapp.ui.base.TrackingActivity;
+import com.ride.driverapp.model.DriverContract;
+import com.ride.driverapp.ui.MainActivity;
 import com.ride.driverapp.R;
-import com.ride.driverapp.RegViewModel;
-import com.ride.driverapp.Services.Api.ApiServiceGenerator;
-import com.ride.driverapp.Services.Api.IApiService;
+import com.ride.driverapp.viewmodel.RegViewModel;
+import com.ride.driverapp.services.api.ApiServiceGenerator;
+import com.ride.driverapp.services.api.IApiService;
 import com.ride.driverapp.databinding.ActivityRegistrationExtraBinding;
 
 import java.util.HashMap;

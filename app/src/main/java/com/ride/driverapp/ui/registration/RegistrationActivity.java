@@ -1,34 +1,18 @@
-package com.ride.driverapp.Registration;
+package com.ride.driverapp.ui.registration;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.ride.driverapp.Base.TrackingActivity;
-import com.ride.driverapp.RegViewModel;
-import com.ride.driverapp.R;
+import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.databinding.ActivityCustomRegistrationBinding;
-
-import org.w3c.dom.Text;
-
-import java.util.regex.Pattern;
+import com.ride.driverapp.viewmodel.*;
+import com.ride.driverapp.R;
 
 
 public class RegistrationActivity extends TrackingActivity implements View.OnClickListener {

@@ -1,4 +1,4 @@
-package com.ride.driverapp.Adapters;
+package com.ride.driverapp.ui.adapters;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,12 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ride.driverapp.Entities.RideContract;
+import com.ride.driverapp.model.RideContract;
 import com.ride.driverapp.R;
-import com.ride.driverapp.RidesViewModel;
+import com.ride.driverapp.viewmodel.RidesViewModel;
 
 import java.util.ArrayList;
 

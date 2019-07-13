@@ -1,4 +1,4 @@
-package com.ride.driverapp.Registration;
+package com.ride.driverapp.ui.registration;
 
 import android.os.Bundle;
 import android.text.TextUtils;

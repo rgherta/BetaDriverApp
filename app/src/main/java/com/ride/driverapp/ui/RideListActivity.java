@@ -1,4 +1,4 @@
-package com.ride.driverapp;
+package com.ride.driverapp.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,14 +19,16 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
-import com.ride.driverapp.Adapters.RidesAdapter;
-import com.ride.driverapp.Base.TrackingActivity;
-import com.ride.driverapp.Entities.RideContract;
+import com.ride.driverapp.R;
+import com.ride.driverapp.ui.adapters.RidesAdapter;
+import com.ride.driverapp.ui.base.TrackingActivity;
+import com.ride.driverapp.model.RideContract;
+import com.ride.driverapp.viewmodel.RegViewModel;
 import com.ride.driverapp.databinding.ActivityRideListBinding;
+import com.ride.driverapp.viewmodel.RidesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

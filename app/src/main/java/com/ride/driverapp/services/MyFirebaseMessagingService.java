@@ -1,4 +1,4 @@
-package com.ride.driverapp.Services;
+package com.ride.driverapp.services;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 

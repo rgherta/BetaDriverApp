@@ -1,4 +1,4 @@
-package com.ride.driverapp.Entities;
+package com.ride.driverapp.model;
 
 import android.text.TextUtils;
 

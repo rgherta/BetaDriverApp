@@ -1,4 +1,4 @@
-package com.ride.driverapp;
+package com.ride.driverapp.viewmodel;
 
 import android.app.Application;
 import android.text.TextUtils;
@@ -7,18 +7,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
-import com.ride.driverapp.Entities.RideContract;
-import com.ride.driverapp.Repository.RidesRepository;
-import com.ride.driverapp.Services.Api.ApiServiceGenerator;
-import com.ride.driverapp.Services.Api.IApiService;
+import com.ride.driverapp.model.RideContract;
+import com.ride.driverapp.services.repository.RidesRepository;
+import com.ride.driverapp.services.api.ApiServiceGenerator;
+import com.ride.driverapp.services.api.IApiService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

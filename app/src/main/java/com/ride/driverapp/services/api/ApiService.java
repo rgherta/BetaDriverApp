@@ -1,9 +1,7 @@
-package com.ride.driverapp.Services.Api;
+package com.ride.driverapp.services.api;
 
 import android.app.IntentService;
-import android.app.Service;
 import android.content.Intent;
-import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 

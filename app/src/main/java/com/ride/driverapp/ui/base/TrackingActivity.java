@@ -1,4 +1,4 @@
-package com.ride.driverapp.Base;
+package com.ride.driverapp.ui.base;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;

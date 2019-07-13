@@ -8,7 +8,7 @@
     <data>
         <variable
             name="vm"
-            type="com.ride.driverapp.RidesViewModel" />
+            type="com.ride.driverapp.viewmodel.RidesViewModel" />
     </data>
 
 
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:context=".RideListActivity">
+        tools:context=".ui.RideListActivity">
 
 
     <com.google.android.gms.maps.MapView

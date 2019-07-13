@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".TrackingActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,52 +23,52 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Registration.RegistrationActivity"
+            android:name=".ui.registration.RegistrationActivity"
             android:label="@string/activity_name_registration"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".Registration.RegistrationExtraActivity"
+            android:name=".ui.registration.RegistrationExtraActivity"
             android:label="@string/activity_name_registration"
-            android:parentActivityName=".Registration.RegistrationActivity"
+            android:parentActivityName=".ui.registration.RegistrationActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Registration.RegistrationActivity" />
+                android:value=".ui.registration.RegistrationActivity" />
         </activity>
         <activity
-            android:name=".Registration.CustomLoginActivity"
+            android:name=".ui.registration.CustomLoginActivity"
             android:label="@string/activity_name_customlogin"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.MainActivity" />
         </activity>
         <activity
-            android:name=".Registration.ResetPasswordActivity"
+            android:name=".ui.registration.ResetPasswordActivity"
             android:label="@string/activity_name_resetpassword"
-            android:parentActivityName=".Registration.CustomLoginActivity"
+            android:parentActivityName=".ui.registration.CustomLoginActivity"
             android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Registration.CustomLoginActivity" />
+                android:value=".ui.registration.CustomLoginActivity" />
         </activity>
         <activity
-            android:name=".RideListActivity"
+            android:name=".ui.RideListActivity"
             android:label="@string/activity_name_rideslist"
-            android:parentActivityName=".Registration.CustomLoginActivity">
+            android:parentActivityName=".ui.registration.CustomLoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Registration.CustomLoginActivity" />
+                android:value=".ui.registration.CustomLoginActivity" />
         </activity>
 
         <service
-            android:name=".Services.MyFirebaseMessagingService"
+            android:name=".services.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

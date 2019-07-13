@@ -1,4 +1,4 @@
-package com.ride.driverapp.Repository;
+package com.ride.driverapp.services.repository;
 
 import android.app.Application;
 import android.util.Log;
@@ -8,10 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import com.ride.driverapp.Entities.RideContract;
-import com.ride.driverapp.Services.Api.ApiServiceGenerator;
-import com.ride.driverapp.Services.Api.IApiService;
+import com.ride.driverapp.model.RideContract;
+import com.ride.driverapp.services.api.ApiServiceGenerator;
+import com.ride.driverapp.services.api.IApiService;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +25,11 @@ public class RidesRepository {
     private IApiService apiService;
     private MutableLiveData<Integer> regStatus = new MutableLiveData<Integer>();
     private MutableLiveData<ArrayList<RideContract>> rides = new MutableLiveData<>();
-    private Application application;
+    private WeakReference<Application> application;
 
 
     public RidesRepository(Application application){
-       this.application = application;
+       this.application = new WeakReference<Application>(application);
     }
 
 
@@ -62,7 +63,7 @@ public class RidesRepository {
 
 
     public MutableLiveData<ArrayList<RideContract>> getRides(){
-        apiService = ApiServiceGenerator.createService(IApiService.class, this.application);
+        apiService = ApiServiceGenerator.createService(IApiService.class, this.application.get());
         Call<JsonArray> call = apiService.getRides();
         call.enqueue(new Callback<JsonArray>() {
 

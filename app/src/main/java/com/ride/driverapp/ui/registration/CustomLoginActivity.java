@@ -1,4 +1,4 @@
-package com.ride.driverapp.Registration;
+package com.ride.driverapp.ui.registration;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,9 +13,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ride.driverapp.Base.TrackingActivity;
+import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.R;
-import com.ride.driverapp.RideListActivity;
+import com.ride.driverapp.ui.RideListActivity;
 
 public class CustomLoginActivity extends TrackingActivity implements View.OnClickListener {
 
@@ -91,6 +91,8 @@ public class CustomLoginActivity extends TrackingActivity implements View.OnClic
 
                                 Log.w("authtoken", token);
                             }
+                        }).addOnCompleteListener( mt -> {
+                            //TODO: request data from backend, save in db
                         });
 
 
@@ -103,6 +105,5 @@ public class CustomLoginActivity extends TrackingActivity implements View.OnClic
 
 
     }
-
 
 }
