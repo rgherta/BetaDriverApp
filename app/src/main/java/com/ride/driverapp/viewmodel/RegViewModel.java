@@ -1,25 +1,41 @@
 package com.ride.driverapp.viewmodel;
 
+import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ride.driverapp.R;
+import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.services.repository.FormRepository;
 
 import java.util.regex.Pattern;
 
-public class RegViewModel extends ViewModel {
+public class RegViewModel extends AndroidViewModel {
 
     private static final String TAG = RegViewModel.class.getSimpleName();
+
+    public RegViewModel(@NonNull Application application) {
+        super(application);
+    }
+
+
+    public void sendDriverData(DriverContract driver, Context context){
+
+        FormRepository.getInstance().sendDriverData(driver, context);
+
+    }
 
 
     public MutableLiveData<String> getRegEmail() { return FormRepository.getInstance().getEmail(); }

@@ -140,22 +140,7 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
                                 );
 
 
-                                IApiService apiService = ApiServiceGenerator.createService(IApiService.class, getBaseContext());
-                                Call<DriverContract> call = apiService.addUser(driver);
-                                call.enqueue(new Callback<DriverContract>() {
-
-                                    @Override
-                                    public void onResponse(Call<DriverContract> call, Response<DriverContract> response) {
-                                        Log.w("response", response.toString());
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<DriverContract> call, Throwable t) {
-                                        Log.w("responserror", t);
-                                        Toast.makeText(RegistrationExtraActivity.this, "createdDriver:failure", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                viewModel.sendDriverData(driver, this);
 
             goMain();
 

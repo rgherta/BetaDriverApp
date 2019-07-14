@@ -73,36 +73,23 @@ public class CustomLoginActivity extends TrackingActivity implements View.OnClic
 
 
         auth.signInWithEmailAndPassword(email, password )
-                .addOnCompleteListener(CustomLoginActivity.this, task -> {
+                .addOnSuccessListener(this, task -> {
 
-                    if (!task.isSuccessful()) {
-                        // there was an error
-                        Toast.makeText(CustomLoginActivity.this, "Unable to login", Toast.LENGTH_LONG).show();
-
-                    } else {
-
-                        auth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(tokenTask -> {
-                            if ( tokenTask.isSuccessful() ) {
-                                String token = tokenTask.getResult().getToken();
-
-                                SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-                                preferencesEditor.putString("AuthToken", token);
-                                preferencesEditor.commit();
-
-                                Log.w("authtoken", token);
-                            }
-                        }).addOnCompleteListener( mt -> {
-                            //TODO: request data from backend, save in db
-                        });
-
+                    auth.getInstance().getCurrentUser().getIdToken(false).addOnSuccessListener(this, tokenTask ->{
+                        String token = tokenTask.getToken();
+                        sharedPreferences.edit().putString("AuthToken", token).commit();
+                        //TODO: request db data and save locally
 
                         Intent intent = new Intent(this, RideListActivity.class);
                         startActivity(intent);
                         finish();
-                    }
+
+                    });
+
+                })
+                .addOnFailureListener(this, task -> {
+                    Toast.makeText(CustomLoginActivity.this, "Unable to login", Toast.LENGTH_LONG).show();
                 });
-
-
 
     }
 
