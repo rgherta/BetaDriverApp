@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.ride.driverapp.R;
-import com.ride.driverapp.services.repository.UserRepository;
+import com.ride.driverapp.services.repository.FormRepository;
 
 import java.util.regex.Pattern;
 
@@ -22,100 +22,100 @@ public class RegViewModel extends ViewModel {
     private static final String TAG = RegViewModel.class.getSimpleName();
 
 
-    public MutableLiveData<String> getRegEmail() { return UserRepository.getInstance().getEmail(); }
+    public MutableLiveData<String> getRegEmail() { return FormRepository.getInstance().getEmail(); }
 
     public void setRegEmail(MutableLiveData<String> regEmail) {
-        UserRepository.getInstance().setEmail(regEmail);
+        FormRepository.getInstance().setEmail(regEmail);
     }
 
     public MutableLiveData<String> getRegPassword() {
-        return UserRepository.getInstance().getPassword();
+        return FormRepository.getInstance().getPassword();
     }
 
     public void setRegPassword(MutableLiveData<String> regPassword) {
-        UserRepository.getInstance().setPassword(regPassword);
+        FormRepository.getInstance().setPassword(regPassword);
     }
 
     public MutableLiveData<String> getRegPassword2() {
-        return UserRepository.getInstance().getRegPassword2();
+        return FormRepository.getInstance().getRegPassword2();
     }
 
     public void setRegPassword2(MutableLiveData<String> regPassword2) {
-        UserRepository.getInstance().setRegPassword2(regPassword2);
+        FormRepository.getInstance().setRegPassword2(regPassword2);
     }
 
     public MutableLiveData<String> getRegFullname() {
-        return UserRepository.getInstance().getRegFullname();
+        return FormRepository.getInstance().getRegFullname();
     }
 
     public void setRegFullname(MutableLiveData<String> regFullname) {
-        UserRepository.getInstance().setRegFullname(regFullname);
+        FormRepository.getInstance().setRegFullname(regFullname);
     }
 
     public MutableLiveData<String> getRegPhone() {
-        return UserRepository.getInstance().getRegPhone();
+        return FormRepository.getInstance().getRegPhone();
     }
 
     public void setRegPhone(MutableLiveData<String> regPhone) {
-        UserRepository.getInstance().setRegPhone(regPhone);
+        FormRepository.getInstance().setRegPhone(regPhone);
     }
 
 
     public MutableLiveData<String> getRegCity() {
-        return UserRepository.getInstance().getRegCity();
+        return FormRepository.getInstance().getRegCity();
     }
 
     public void setRegCity(MutableLiveData<String> regCity) {
-        UserRepository.getInstance().setRegCity(regCity);
+        FormRepository.getInstance().setRegCity(regCity);
     }
 
 
     public MutableLiveData<String> getRegVehicle() {
-        return UserRepository.getInstance().getRegVehicle();
+        return FormRepository.getInstance().getRegVehicle();
     }
 
     public void setRegVehicle(MutableLiveData<String> regVehicle) {
-        UserRepository.getInstance().setRegVehicle(regVehicle);
+        FormRepository.getInstance().setRegVehicle(regVehicle);
     }
 
     public MutableLiveData<String> getRegPlate() {
-        return UserRepository.getInstance().getRegPlate();
+        return FormRepository.getInstance().getRegPlate();
     }
 
     public void setRegPlate(MutableLiveData<String> regPlate) {
-        UserRepository.getInstance().setRegPlate(regPlate);
+        FormRepository.getInstance().setRegPlate(regPlate);
     }
 
     public MutableLiveData<String> getRegPpk() {
-        return UserRepository.getInstance().getRegPpk();
+        return FormRepository.getInstance().getRegPpk();
     }
 
     public void setRegPpk(MutableLiveData<String> regPpk) {
-        UserRepository.getInstance().setRegPpk(regPpk);
+        FormRepository.getInstance().setRegPpk(regPpk);
     }
 
     public MutableLiveData<String> getRegCurr() {
-        return UserRepository.getInstance().getRegCurr();
+        return FormRepository.getInstance().getRegCurr();
     }
 
     public void setRegCurr(MutableLiveData<String> regCurr) {
-        UserRepository.getInstance().setRegCurr(regCurr);
+        FormRepository.getInstance().setRegCurr(regCurr);
     }
 
     public MutableLiveData<Boolean> getRegPayCash() {
-        return UserRepository.getInstance().getRegPayCash();
+        return FormRepository.getInstance().getRegPayCash();
     }
 
     public void setRegPayCash(MutableLiveData<Boolean> regPayCash) {
-        UserRepository.getInstance().setRegPayCash(regPayCash);
+        FormRepository.getInstance().setRegPayCash(regPayCash);
     }
 
     public MutableLiveData<Boolean> getRegPayPal() {
-        return UserRepository.getInstance().getRegPayPal();
+        return FormRepository.getInstance().getRegPayPal();
     }
 
     public void setRegPayPal(MutableLiveData<Boolean> regPayPal) {
-        UserRepository.getInstance().setRegPayPal(regPayPal);
+        FormRepository.getInstance().setRegPayPal(regPayPal);
     }
 
     //custom validation

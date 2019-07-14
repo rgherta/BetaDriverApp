@@ -1,23 +1,19 @@
 package com.ride.driverapp.services.repository;
 
-import android.app.Application;
-
 import androidx.lifecycle.MutableLiveData;
 
-import java.lang.ref.WeakReference;
-
-public class UserRepository {
+public class FormRepository {
 
     //singleton code
-    private static UserRepository instance;
+    private static FormRepository instance;
 
-    private UserRepository(){
+    private FormRepository(){
 
     }
 
-    public static synchronized UserRepository getInstance(){
+    public static synchronized FormRepository getInstance(){
         if(instance == null){
-            instance = new UserRepository();
+            instance = new FormRepository();
         }
         return instance;
     }

@@ -4,7 +4,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +32,6 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
     private static final String TAG = RegistrationActivity.class.getSimpleName();
 
     private FirebaseAuth auth;
-    private RegistrationExtraActivity.UserRegistrationTask mAuthTask = null;
 
 
     RegViewModel viewModel;
@@ -45,19 +43,13 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
 
         auth = FirebaseAuth.getInstance();
 
-
-        //Obtain viewmodel from ViewModelProviders through lifecycle library
         viewModel = ViewModelProviders.of(this).get(RegViewModel.class);
-        //Obtain binding
         ActivityRegistrationExtraBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_registration_extra);
         binding.setLifecycleOwner(this);
-        //Bind layout with viewmodel
         binding.setVm(viewModel);
 
         findViewById(R.id.back_button).setOnClickListener(this);
         findViewById(R.id.btn_register).setOnClickListener(this);
-
-
     }
 
 
@@ -74,6 +66,8 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
         viewModel.getRegPayCash().setValue(new Boolean(true));
         viewModel.getRegPayPal().setValue(new Boolean(false));
 
+        String authToken = sharedPreferences.getString("AuthToken", "");
+        Log.w("mytoken", authToken);
     }
 
 
@@ -103,52 +97,31 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
             return;
         }
 
-        mAuthTask = new UserRegistrationTask(viewModel.getRegEmail().getValue(), viewModel.getRegPassword().getValue());
-        mAuthTask.execute((Void) null);
+        auth.createUserWithEmailAndPassword(viewModel.getRegEmail().getValue(), viewModel.getRegPassword().getValue()).addOnSuccessListener(this, task ->{
 
+            Toast.makeText(RegistrationExtraActivity.this, "createUserWithEmail:onComplete:successfull", Toast.LENGTH_SHORT).show();
+            auth.getCurrentUser().getIdToken(false).addOnSuccessListener(this, tokenTask -> {
+                String token = tokenTask.getToken();
+                sharedPreferences.edit().putString("AuthToken", token).commit();
+                Log.w("authtoken", token);
+                saveUserDB();
 
+            });
+
+        }).addOnFailureListener(this, task -> {
+            Toast.makeText(RegistrationExtraActivity.this, "createUserWithEmail:failure", Toast.LENGTH_SHORT).show();
+        });
     }
-
 
 
     private boolean validFields() {
 
-        return viewModel.hasValidCity() && viewModel.hasValidVehicle()
-                && viewModel.hasValidPlate() && viewModel.hasValidPpk()
-                && viewModel.hasValidCurr();
-
+        return viewModel.hasValidCity() && viewModel.hasValidVehicle() && viewModel.hasValidPlate() && viewModel.hasValidPpk() && viewModel.hasValidCurr();
     }
 
 
+     private void saveUserDB(){
 
-    //TODO: move to ViewModel/Repo/Service
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserRegistrationTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            auth.createUserWithEmailAndPassword(mEmail, mPassword)
-                    .addOnCompleteListener(RegistrationExtraActivity.this, task -> {
-                        Toast.makeText(RegistrationExtraActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                        if (!task.isSuccessful()) {
-                            //showProgress(false);
-                            Toast.makeText(getBaseContext(), "Authentication failed." + task.getException(),
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
-                            if(isNew){
-                            //TODO: call API
                                 String fcmToken = sharedPreferences.getString("FcmToken", null);
                                 HashMap<String, Boolean> payment = new HashMap<>();
                                 payment.put("cash", viewModel.getRegPayCash().getValue());
@@ -159,22 +132,11 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
                                 loc.put("long", new Double(0));
 
 
-                                DriverContract driver = new DriverContract(
-                                    auth.getUid(), fcmToken
-                                        , viewModel.getRegFullname().getValue()
-                                        , 7
-                                        , viewModel.getRegEmail().getValue()
-                                        , viewModel.getRegVehicle().getValue()
-                                        , viewModel.getRegPlate().getValue()
+                                DriverContract driver = new DriverContract( auth.getUid(), fcmToken, viewModel.getRegFullname().getValue(), 7
+                                        , viewModel.getRegEmail().getValue(), viewModel.getRegVehicle().getValue(), viewModel.getRegPlate().getValue()
                                         , viewModel.getRegPhone().getValue()
-                                        , payment
-                                        , viewModel.getRegCity().getValue()
-                                        , Double.valueOf(viewModel.getRegPpk().getValue())
-                                        , viewModel.getRegCurr().getValue()
-                                        , 0
-                                        , 0
-                                        , 0
-                                        , loc
+                                        , payment, viewModel.getRegCity().getValue(), Double.valueOf(viewModel.getRegPpk().getValue()), viewModel.getRegCurr().getValue()
+                                        , 0, 0, 0, loc
                                 );
 
 
@@ -191,55 +153,22 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
                                     @Override
                                     public void onFailure(Call<DriverContract> call, Throwable t) {
                                         Log.w("responserror", t);
+                                        Toast.makeText(RegistrationExtraActivity.this, "createdDriver:failure", Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
+            goMain();
 
-                            }
-                        }
-
-
-                         FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(tokenTask -> {
-                            if ( tokenTask.isSuccessful() ) {
-                                String token = tokenTask.getResult().getToken();
+         }
 
 
-                                sharedPreferences.edit().putString("AuthToken", token);
-                                sharedPreferences.edit().commit();
-
-                                Log.w("authtoken", token);
-                            }
-                        });
-
-
-
-                        //TODO: redirects to main activity
-                        viewModel.clearData();
-                        Intent intent = new Intent(RegistrationExtraActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    });
-
-
-            return true;
-
-        }
-
-
-
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            mAuthTask = null;
-            //TODO: redirect to list activity
-        }
-    }
+         private void goMain(){
+             viewModel.clearData();
+             Intent intent = new Intent(RegistrationExtraActivity.this, MainActivity.class);
+             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+             startActivity(intent);
+             finish();
+         }
+         
 
 }
