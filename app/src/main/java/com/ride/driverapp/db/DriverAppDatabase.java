@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.ride.driverapp.model.DriverContract;
 
-@Database( entities = {DriverContract.class}, version=1 )
+@Database( entities = {DriverContract.class}, version=1, exportSchema = false)
 public abstract class DriverAppDatabase extends RoomDatabase {
 
     public abstract IDriverDao driverDao();
@@ -16,7 +16,7 @@ public abstract class DriverAppDatabase extends RoomDatabase {
     private static volatile  DriverAppDatabase INSTANCE;
 
 
-    static DriverAppDatabase getDatabase( final Context context ){
+    public static DriverAppDatabase getDatabase(final Context context){
         if(INSTANCE == null){
             synchronized (DriverAppDatabase.class){
                 if (INSTANCE == null){

@@ -1,14 +1,17 @@
 package com.ride.driverapp.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +23,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
 import com.ride.driverapp.R;
+import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.ui.adapters.RidesAdapter;
 import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.model.RideContract;
+import com.ride.driverapp.ui.registration.RegistrationExtraActivity;
 import com.ride.driverapp.viewmodel.RegViewModel;
 import com.ride.driverapp.databinding.ActivityRideListBinding;
 import com.ride.driverapp.viewmodel.RidesViewModel;
@@ -69,6 +76,25 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         mapView.getMapAsync(this);
 
 
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                menuItem -> {
+
+                    menuItem.setChecked(true);
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.signout:
+                            signOut();
+                            break;
+                    }
+
+                    return true;
+                });
+
+//                viewModel.getAccountData().observe( this, driver -> {
+//                    Log.w("dbcall", driver.toString());
+//                });
 
 
 
@@ -94,6 +120,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
             viewModel.updateStatus(newStatus);
 
         });
+
 
 
         getAvailableRides();
@@ -158,6 +185,16 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
         });
 
+    }
+
+
+    private void signOut() {
+
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
     }
 
 

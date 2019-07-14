@@ -1,5 +1,7 @@
 package com.ride.driverapp.db;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -17,6 +19,6 @@ public interface IDriverDao {
     void clearTable();
 
     @Query("SELECT * FROM driver_table LIMIT 1")
-    DriverContract getDriver();
+    LiveData<DriverContract> getDriver();
 
 }

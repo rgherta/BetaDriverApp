@@ -58,7 +58,7 @@ public class ApiServiceGenerator {
         String versionName = sharedPreferences.getString("PackageName", "");
         String applicationId = sharedPreferences.getString("ApplicationId", "");
         String authToken = sharedPreferences.getString("AuthToken", "");
-        Log.w("ok", versionCode + " " + versionName + " " + applicationId + " " + authToken);
+        Log.w("Retrofit", versionCode + " " + versionName + " " + applicationId + " " + authToken);
 
                 httpClient.retryOnConnectionFailure(false); // otherwise on slow connections it creates multiple similar
                 httpClient.cache(null);

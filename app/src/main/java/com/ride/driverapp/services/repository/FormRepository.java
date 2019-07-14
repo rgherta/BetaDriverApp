@@ -4,11 +4,15 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.ride.driverapp.db.DriverAppDatabase;
+import com.ride.driverapp.db.IDriverDao;
 import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.services.api.ApiServiceGenerator;
 import com.ride.driverapp.services.api.IApiService;
+import com.ride.driverapp.services.tasks.InsertDriver;
 import com.ride.driverapp.ui.registration.RegistrationExtraActivity;
 
 import retrofit2.Call;
@@ -52,6 +56,30 @@ public class FormRepository {
 
         IApiService apiService = ApiServiceGenerator.createService(IApiService.class, ctx);
         Call<DriverContract> call = apiService.addUser(driver);
+        call.enqueue(new Callback<DriverContract>() {
+
+            @Override
+            public void onResponse(Call<DriverContract> call, Response<DriverContract> response) {
+                Log.w("response", response.toString());
+                DriverAppDatabase db = DriverAppDatabase.getDatabase(ctx);
+                new InsertDriver(db.driverDao()).execute(driver);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<DriverContract> call, Throwable t) {
+                Log.w("responserror", t);
+            }
+        });
+
+    }
+
+
+    public void getDriverData(String uid, Context ctx){
+
+        IApiService apiService = ApiServiceGenerator.createService(IApiService.class, ctx);
+        Call<DriverContract> call = apiService.getDriver(uid);
         call.enqueue(new Callback<DriverContract>() {
 
             @Override

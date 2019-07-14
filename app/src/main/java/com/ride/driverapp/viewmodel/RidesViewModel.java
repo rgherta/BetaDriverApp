@@ -6,9 +6,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.JsonObject;
+import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.model.RideContract;
 import com.ride.driverapp.services.repository.RidesRepository;
 import com.ride.driverapp.services.api.ApiServiceGenerator;
@@ -94,6 +96,10 @@ public class RidesViewModel extends AndroidViewModel {
 
     public MutableLiveData<ArrayList<RideContract>> getRides(){
         return ridesRepository.getRides();
+    }
+
+    public LiveData<DriverContract> getAccountData(){
+        return ridesRepository.getAccountData();
     }
 
     public void updateStatus(JsonObject newStatus){

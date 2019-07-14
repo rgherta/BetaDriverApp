@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 
 public interface IApiService {
@@ -16,6 +17,10 @@ public interface IApiService {
     @Headers("Content-Type: application/json")
     @POST("users/add")
     Call<DriverContract> addUser(@Body DriverContract driver);
+
+    @Headers("Content-Type: application/json")
+    @GET("users/driver")
+    Call<DriverContract> getDriver(@Query("uid") String uid);
 
 
     @Headers("Content-Type: application/json")
@@ -26,6 +31,8 @@ public interface IApiService {
     @Headers("Content-Type: application/json")
     @GET("rides")
     Call<JsonArray> getRides();
+
+
 
 
 }

@@ -37,6 +37,12 @@ public class RegViewModel extends AndroidViewModel {
 
     }
 
+    public void getDriverData(String uid, Context context){
+
+        FormRepository.getInstance().getDriverData(uid, context);
+
+    }
+
 
     public MutableLiveData<String> getRegEmail() { return FormRepository.getInstance().getEmail(); }
 
