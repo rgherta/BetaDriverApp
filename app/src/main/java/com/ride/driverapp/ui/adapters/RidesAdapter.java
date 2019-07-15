@@ -73,7 +73,7 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
 
         holder.pickup.setText(ride.getPickupStr());
         holder.destination.setText(ride.getDestinationStr());
-        holder.customer.setText(ride.getCustomer_name());
+        holder.customer.setText(ride.getCustomer_name().split(" ",2)[0]);
 
         //TODO: something something
 

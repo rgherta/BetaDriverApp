@@ -7,7 +7,6 @@ import com.ride.driverapp.db.IDriverDao;
 import com.ride.driverapp.model.DriverContract;
 
 public class InsertDriver extends AsyncTask<DriverContract, Void, Void> {
-    private static final String TAG = InsertDriver.class.getSimpleName();
 
     private IDriverDao driverDao;
 
@@ -17,8 +16,8 @@ public class InsertDriver extends AsyncTask<DriverContract, Void, Void> {
 
     @Override
     protected Void doInBackground(DriverContract[] driverContracts) {
+        driverDao.clearTable();
         driverDao.insert(driverContracts[0]);
-        Log.i("thisisimportant", driverContracts[0].toString());
         return null;
     }
 

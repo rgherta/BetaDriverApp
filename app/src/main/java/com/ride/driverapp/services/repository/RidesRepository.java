@@ -1,6 +1,7 @@
 package com.ride.driverapp.services.repository;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -10,7 +11,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.ride.driverapp.db.DriverAppDatabase;
-import com.ride.driverapp.db.IDriverDao;
 import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.model.RideContract;
 import com.ride.driverapp.services.api.ApiServiceGenerator;
@@ -93,8 +93,9 @@ public class RidesRepository {
     public LiveData<DriverContract> getAccountData(){
 
         DriverAppDatabase db = DriverAppDatabase.getDatabase(application.get());
-        IDriverDao dao = db.driverDao();
-        return dao.getDriver();
+        return db.driverDao().getDriver();
+
+
 
     }
 

@@ -85,6 +85,8 @@ public class FormRepository {
             @Override
             public void onResponse(Call<DriverContract> call, Response<DriverContract> response) {
                 Log.w("response", response.toString());
+                DriverAppDatabase db = DriverAppDatabase.getDatabase(ctx);
+                if(response.isSuccessful()) new InsertDriver(db.driverDao()).execute((DriverContract) response.body());
 
             }
 

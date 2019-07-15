@@ -54,6 +54,8 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     private RecyclerView.LayoutManager ridesLayoutManager;
     private ArrayList<RideContract> ridesArray;
 
+    private DriverContract accountData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,9 +94,11 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
                     return true;
                 });
 
-//                viewModel.getAccountData().observe( this, driver -> {
-//                    Log.w("dbcall", driver.toString());
-//                });
+
+                viewModel.getAccountData().observe( this, driver -> {
+                        accountData = driver;
+;                });
+
 
 
 
