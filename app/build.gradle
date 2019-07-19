@@ -23,6 +23,7 @@ android {
         targetCompatibility = '1.8'
         sourceCompatibility = '1.8'
     }
+    buildToolsVersion = '29.0.0'
 }
 
 dependencies {
@@ -41,7 +42,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'com.google.android.material:material:1.1.0-alpha08'
 
     implementation "com.google.firebase:firebase-auth:$firebase_auth"
     implementation "com.google.firebase:firebase-core:$firebase_core"

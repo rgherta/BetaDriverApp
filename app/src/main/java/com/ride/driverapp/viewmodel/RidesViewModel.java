@@ -39,11 +39,14 @@ public class RidesViewModel extends AndroidViewModel {
     private MutableLiveData<String> estimation = new MutableLiveData<>();
     private LiveData<DriverContract> accountData = new MutableLiveData<>();
 
+    private MutableLiveData<Boolean> fabVisibility = new MutableLiveData<>();
+
 
     public RidesViewModel(@NonNull Application application) {
         super(application);
         ridesRepository = new RidesRepository(application);
         apiService = ApiServiceGenerator.createService(IApiService.class, application);
+        this.fabVisibility.postValue(false);
     }
 
 
@@ -53,7 +56,7 @@ public class RidesViewModel extends AndroidViewModel {
 
     public void setAdapterItem(RideContract adapterItem) {
         Log.w(TAG, "clicked: " + adapterItem);
-        this.getAdapterItem().setValue(adapterItem);
+        this.adapterItem.setValue(adapterItem);
 
         String distanceVal = TextUtils.concat(String.valueOf( Math.round ( adapterItem.getDistance() / 1000) ), " km").toString();
         String durationVal;
@@ -73,6 +76,8 @@ public class RidesViewModel extends AndroidViewModel {
         Double accountPpk = this.accountData.getValue().getPpk();
         String estimatedPrice = (String) TextUtils.concat( String.valueOf(  Math.round( ( adapterItem.getDistance() / 1000) * accountPpk) ) , " ", accountCurrency);
         this.getEstimation().setValue( estimatedPrice );
+
+        this.getFabVisibility().postValue(true);
     }
 
 
@@ -143,6 +148,11 @@ public class RidesViewModel extends AndroidViewModel {
     }
 
 
+    public MutableLiveData<Boolean> getFabVisibility() {
+        return fabVisibility;
+    }
 
-
+    public void setFabVisibility(MutableLiveData<Boolean> fabVisibility) {
+        this.fabVisibility = fabVisibility;
+    }
 }

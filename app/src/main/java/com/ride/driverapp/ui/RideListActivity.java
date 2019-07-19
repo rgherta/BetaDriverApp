@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.core.view.GravityCompat;
@@ -141,6 +142,14 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         ridesAdapter = new RidesAdapter(ridesArray, viewModel);
         recyclerView.setAdapter(ridesAdapter);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                viewModel.getFabVisibility().setValue(false);
+            }
+        });
+
 
         viewModel.getRides().observe(this, rideContracts -> {
             Log.w(TAG, rideContracts.toString());
@@ -185,6 +194,8 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
             mMap.addPolyline(lineOptions);
 
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
+
+
 
 
         });

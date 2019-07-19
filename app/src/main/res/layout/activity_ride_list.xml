@@ -6,6 +6,7 @@
     >
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="vm"
             type="com.ride.driverapp.viewmodel.RidesViewModel" />
@@ -20,12 +21,14 @@
         >
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:animateLayoutChanges="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         tools:context=".ui.RideListActivity">
+
+
 
 
     <com.google.android.gms.maps.MapView
@@ -39,9 +42,30 @@
         map:uiZoomControls = "false"
         map:uiCompass = "false"
         android:background="#fff"
-
-
         />
+
+
+ <androidx.cardview.widget.CardView
+     android:id="@+id/fab_next"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     app:layout_constraintEnd_toEndOf="@id/map_info"
+     app:layout_constraintBottom_toBottomOf="@id/map_info"
+     app:layout_constraintTop_toTopOf="@id/recycler_ride_list"
+     android:layout_marginRight="64dp"
+     app:cardCornerRadius="24dp"
+     app:cardElevation="18dp"
+     android:visibility="@{vm.fabVisibility? View.VISIBLE : View.GONE}"
+
+     >
+     <androidx.appcompat.widget.AppCompatImageView
+         android:layout_width="48dp"
+         android:layout_height="48dp"
+         android:src="@drawable/ic_navigate_next_black_24dp"
+         android:padding="8dp"
+         />
+
+ </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
@@ -80,16 +104,16 @@
 
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
             android:layout_width="32dp"
-            android:layout_height="32dp"
 
+            android:layout_height="32dp"
             android:layout_marginRight="24dp"
+            android:onClick="openDrawer"
             android:src="@drawable/ic_menu_black_24dp"
             app:layout_constraintBottom_toBottomOf="@id/status"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/status"
-            android:onClick="openDrawer"
-            >
+            app:layout_constraintTop_toTopOf="@id/status">
 
         </androidx.appcompat.widget.AppCompatImageView>
 
@@ -156,7 +180,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
@@ -169,5 +192,10 @@
             app:headerLayout="@layout/nav_header"
             />
 
+
+
+
     </androidx.drawerlayout.widget.DrawerLayout>
+
+
 </layout>
