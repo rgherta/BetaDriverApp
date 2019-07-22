@@ -5,6 +5,7 @@
     <string name="activity_name_customlogin">Custom Login</string>
     <string name="activity_name_resetpassword">Reset Password</string>
     <string name="activity_name_rideslist">My Rides</string>
+    <string name="activity_name_ride">Ongoing Ride</string>
     <string-array name="curr_array">
         <item>RON</item>
         <item>EUR</item>

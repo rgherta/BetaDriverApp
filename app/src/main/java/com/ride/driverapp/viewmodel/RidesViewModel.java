@@ -40,6 +40,7 @@ public class RidesViewModel extends AndroidViewModel {
     private LiveData<DriverContract> accountData = new MutableLiveData<>();
 
     private MutableLiveData<Boolean> fabVisibility = new MutableLiveData<>();
+    private MutableLiveData<Boolean> listVisibility = new MutableLiveData<>();
 
 
     public RidesViewModel(@NonNull Application application) {
@@ -47,6 +48,7 @@ public class RidesViewModel extends AndroidViewModel {
         ridesRepository = new RidesRepository(application);
         apiService = ApiServiceGenerator.createService(IApiService.class, application);
         this.fabVisibility.postValue(false);
+        this.listVisibility.postValue(true);
     }
 
 
@@ -155,4 +157,11 @@ public class RidesViewModel extends AndroidViewModel {
     public void setFabVisibility(MutableLiveData<Boolean> fabVisibility) {
         this.fabVisibility = fabVisibility;
     }
+
+    public MutableLiveData<Boolean> getListVisibility() { return listVisibility; }
+
+    public void setListVisibility(MutableLiveData<Boolean> listVisibility) {
+        this.listVisibility = listVisibility;
+    }
+
 }

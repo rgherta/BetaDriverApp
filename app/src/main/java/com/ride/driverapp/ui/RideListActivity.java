@@ -5,14 +5,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +35,6 @@ import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.ui.adapters.RidesAdapter;
 import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.model.RideContract;
-import com.ride.driverapp.ui.registration.RegistrationExtraActivity;
 import com.ride.driverapp.viewmodel.RegViewModel;
 import com.ride.driverapp.databinding.ActivityRideListBinding;
 import com.ride.driverapp.viewmodel.RidesViewModel;
@@ -41,7 +42,7 @@ import com.ride.driverapp.viewmodel.RidesViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideListActivity extends TrackingActivity implements OnMapReadyCallback {
+public class RideListActivity extends TrackingActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final String TAG = RegViewModel.class.getSimpleName();
 
@@ -79,21 +80,21 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         mapView.getMapAsync(this);
 
 
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(
-                menuItem -> {
-
-                    menuItem.setChecked(true);
-
-                    switch (menuItem.getItemId()) {
-                        case R.id.signout:
-                            signOut();
-                            break;
-                    }
-
-                    return true;
-                });
+//        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+//        NavigationView navigationView = findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(
+//                menuItem -> {
+//
+//                    menuItem.setChecked(true);
+//
+//                    switch (menuItem.getItemId()) {
+//                        case R.id.signout:
+//                            signOut();
+//                            break;
+//                    }
+//
+//                    return true;
+//                });
 
 
                 viewModel.getAccountData().observe( this, driver -> {
@@ -101,7 +102,8 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 ;                });
 
 
-
+        CardView img = findViewById(R.id.fab_next);
+        img.setOnClickListener(this);
 
     }
 
@@ -164,8 +166,8 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
 
     public void openDrawer(View v){
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-        drawerLayout.openDrawer(GravityCompat.END);
+//        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+//        drawerLayout.openDrawer(GravityCompat.END);
     }
 
     @Override
@@ -212,5 +214,25 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         finish();
     }
 
+    private void goNext(){
+        Intent intent = new Intent(this, RideConfirmation.class);
+        startActivity(intent);
 
+    }
+
+    private void confirmData(){
+        RecyclerView recyclerView = findViewById(R.id.recycler_ride_list);
+        recyclerView.setVisibility(View.GONE);
+
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.fab_next:
+                confirmData();
+        }
+    }
 }

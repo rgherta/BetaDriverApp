@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ride.driverapp">
+
     <!-- Internet Permission -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -14,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TrackingActivity"></activity>
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/motion_scene" />
+
+        <activity android:name=".TrackingActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +66,14 @@
         <activity
             android:name=".ui.RideListActivity"
             android:label="@string/activity_name_rideslist"
+            android:parentActivityName=".ui.registration.CustomLoginActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.registration.CustomLoginActivity" />
+        </activity>
+        <activity
+            android:name=".ui.RideConfirmation"
+            android:label="@string/activity_name_ride"
             android:parentActivityName=".ui.registration.CustomLoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
