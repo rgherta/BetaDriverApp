@@ -5,16 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
-import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +20,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
@@ -35,6 +29,7 @@ import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.ui.adapters.RidesAdapter;
 import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.model.RideContract;
+import com.ride.driverapp.ui.fragments.TimePickerFragment;
 import com.ride.driverapp.viewmodel.RegViewModel;
 import com.ride.driverapp.databinding.ActivityRideListBinding;
 import com.ride.driverapp.viewmodel.RidesViewModel;
@@ -42,7 +37,7 @@ import com.ride.driverapp.viewmodel.RidesViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RideListActivity extends TrackingActivity implements OnMapReadyCallback, View.OnClickListener {
+public class RideListActivity extends TrackingActivity implements OnMapReadyCallback{
 
     private static final String TAG = RegViewModel.class.getSimpleName();
 
@@ -97,13 +92,25 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 //                });
 
 
+
+        TextInputEditText til = findViewById(R.id.txt_driver_timeline_value);
+        til.setOnFocusChangeListener((view, isFocused) -> {
+            if (isFocused) showTimePickerDialog(view);
+        });
+
+
+
                 viewModel.getAccountData().observe( this, driver -> {
                         accountData = driver;
 ;                });
 
+                viewModel.getEstimatedArrival().observe(this, time -> {
+                    Log.w("mainact", time);
+                    clearInputs();
 
-        CardView img = findViewById(R.id.fab_next);
-        img.setOnClickListener(this);
+                });
+
+
 
     }
 
@@ -144,13 +151,12 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         ridesAdapter = new RidesAdapter(ridesArray, viewModel);
         recyclerView.setAdapter(ridesAdapter);
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                viewModel.getFabVisibility().setValue(false);
-            }
-        });
+//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
 
         viewModel.getRides().observe(this, rideContracts -> {
@@ -214,25 +220,38 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         finish();
     }
 
-    private void goNext(){
-        Intent intent = new Intent(this, RideConfirmation.class);
+    public void goNext(View v){
+        Intent intent = new Intent(this, RideConfirmationActivity.class);
         startActivity(intent);
 
     }
 
-    private void confirmData(){
-        RecyclerView recyclerView = findViewById(R.id.recycler_ride_list);
-        recyclerView.setVisibility(View.GONE);
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment(viewModel.getEstimatedArrival());
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
 
-
+    public void closeDetails(View v){
+        clearInputs();
+        viewModel.getShowDetails().setValue(false);
+        viewModel.getEstimatedArrival().setValue("");
+        viewModel.getEstimatedPrice().setValue("");
     }
 
 
+     private void clearInputs(){
+         TextInputEditText editText1 = findViewById(R.id.txt_driver_timeline_value);
+         editText1.clearFocus();
+         TextInputEditText editText2 = findViewById(R.id.txt_driver_ppk_value);
+         editText2.clearFocus();
+     }
+
     @Override
-    public void onClick(View v) {
-        switch(v.getId()) {
-            case R.id.fab_next:
-                confirmData();
-        }
+    public void onBackPressed() {
+        //super.onBackPressed();
+        clearInputs();
+        viewModel.getShowDetails().setValue(false);
+        viewModel.getEstimatedArrival().setValue("");
+        viewModel.getEstimatedPrice().setValue("");
     }
 }

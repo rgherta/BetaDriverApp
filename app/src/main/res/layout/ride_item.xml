@@ -5,8 +5,8 @@
     android:id="@+id/main_linear"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:foreground="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
 
     >
 
@@ -14,68 +14,44 @@
         android:id="@+id/constr_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingRight="8dp"
-        android:paddingBottom="16dp"
         android:paddingTop="8dp"
-        >
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/pickup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:scrollHorizontally="true"
-            android:text="Calea Calarasi 75"
-            android:textColor="#333"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/directions_img"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/destination"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLength="20"
-            android:text="Calea Calarasi 75"
-            android:textColor="#333"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/directions_img"
-            app:layout_constraintTop_toBottomOf="@+id/pickup" />
+        android:paddingRight="8dp"
+        android:paddingBottom="16dp">
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
             android:text="Roman Gherta"
+            android:textColor="#666"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/directions_img"
+            app:layout_constraintTop_toTopOf="@+id/directions_img" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/customer_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="5 km distance (tbd)"
             android:textColor="#999999"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/destination"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/pickup" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/location"
+            app:layout_constraintStart_toEndOf="@+id/location"
+            app:layout_constraintTop_toTopOf="@+id/location" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/directions_img"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="8dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
 
-            android:src="@drawable/ic_directions_black_24dp"
+            android:src="@drawable/ic_account_circle_black_24dp"
             android:tint="#666"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -83,13 +59,41 @@
 
         </androidx.appcompat.widget.AppCompatImageView>
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/location"
+            android:layout_width="12dp"
+            android:layout_height="19dp"
+
+            android:src="@drawable/ic_location_on_black_24dp"
+            android:tint="#666"
+            app:layout_constraintBottom_toBottomOf="@+id/directions_img"
+            app:layout_constraintStart_toStartOf="@+id/customer_name"
+            app:layout_constraintTop_toBottomOf="@+id/customer_name" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/arrowdown"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+            android:tint="#666"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="#ccc" />
 
 

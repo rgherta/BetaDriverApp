@@ -13,13 +13,13 @@
     </data>
 
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/motion_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
         tools:context=".ui.RideListActivity"
-        app:layoutDescription="@xml/motion_scene"
+        android:animateLayoutChanges="true"
         >
 
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintHeight_percent="0.55"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         map:uiZoomControls = "false"
@@ -39,31 +39,6 @@
         />
 
 
- <androidx.cardview.widget.CardView
-     android:id="@+id/fab_next"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     app:layout_constraintRight_toRightOf="@id/map_info"
-     app:layout_constraintBottom_toBottomOf="@id/map_info"
-     app:layout_constraintTop_toTopOf="@id/bottom_container"
-     android:layout_marginRight="24dp"
-     app:cardCornerRadius="28dp"
-     app:cardElevation="18dp"
-
-     android:clickable="true"
-     android:background="@android:color/white"
-     android:foreground="?android:attr/selectableItemBackground"
-     android:backgroundTint="#4CAF50"
-     >
-     <androidx.appcompat.widget.AppCompatImageView
-         android:layout_width="56dp"
-         android:layout_height="56dp"
-         android:src="@drawable/ic_navigate_next_black_24dp"
-         android:tint="#fff"
-         android:padding="8dp"
-         />
-
- </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
@@ -161,7 +136,7 @@
             android:id="@+id/bottom_container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintHeight_percent="0.45"
             app:layout_constraintTop_toBottomOf="@id/map_info"
             >
 
@@ -174,13 +149,212 @@
 
                 android:elevation="16dp"
                 android:background="#fff"
-                android:visibility="visible"
+                android:visibility="@{vm.getShowDetails()? View.GONE : View.VISIBLE}"
 
                 >
 
             </androidx.recyclerview.widget.RecyclerView>
 
 
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ride_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:visibility="@{vm.getShowDetails()? View.VISIBLE : View.GONE}"
+                >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/profile_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:minWidth="50dp"
+                    android:minHeight="50dp"
+                    android:src="@drawable/ic_account_circle_black_24dp"
+                    android:tint="#666"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/ride_custname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{vm.getAdapterItem().customer_name}"
+                    android:textSize="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
+                    app:layout_constraintStart_toEndOf="@id/profile_avatar"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/close_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:minWidth="16dp"
+                    android:minHeight="16dp"
+                    android:src="@drawable/ic_close_black_24dp"
+                    android:tint="#666"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:onClick="closeDetails"
+                    />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pickup_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{vm.getAdapterItem().pickupStr}"
+                    android:textSize="14dp"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_avatar"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginLeft="32dp"
+                    tools:layout_editor_absoluteX="28dp"
+                    android:maxLines="1"
+                    android:maxWidth="270dp"
+                    android:ellipsize="end"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/dest_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@{vm.getAdapterItem().destinationStr}"
+                    android:textSize="14dp"
+                    android:maxLines="1"
+                    android:maxWidth="270dp"
+                    android:ellipsize="end"
+                    app:layout_constraintStart_toStartOf="@id/pickup_address"
+                    app:layout_constraintTop_toBottomOf="@id/pickup_address" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/circle1"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/circle"
+                    android:tint="#858585"
+                    app:layout_constraintEnd_toEndOf="@id/close_details"
+                    app:layout_constraintStart_toStartOf="@id/close_details"
+                    app:layout_constraintTop_toTopOf="@id/pickup_address" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/circle11"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/circlesmall"
+                    android:tint="#858585"
+                    app:layout_constraintTop_toBottomOf="@id/circle1"
+                    app:layout_constraintEnd_toEndOf="@id/close_details"
+                    app:layout_constraintStart_toStartOf="@id/close_details"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/circle12"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/circlesmall"
+                    android:tint="#858585"
+                    app:layout_constraintTop_toBottomOf="@id/circle11"
+                    app:layout_constraintEnd_toEndOf="@id/close_details"
+                    app:layout_constraintStart_toStartOf="@id/close_details"
+                    />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/circle2"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/circle"
+                    android:tint="#858585"
+                    app:layout_constraintEnd_toEndOf="@id/close_details"
+                    app:layout_constraintStart_toStartOf="@id/close_details"
+                    app:layout_constraintTop_toBottomOf="@+id/circle12" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_driver_ppk"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Pay(RON)"
+                    android:focusedByDefault="false"
+                    app:layout_constraintStart_toStartOf="@id/dest_address"
+                    app:layout_constraintTop_toBottomOf="@id/dest_address"
+                    app:layout_constraintWidth_percent="0.35">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_driver_ppk_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:textSize="12dp"
+                        android:text="@={vm.getEstimatedPrice()}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_driver_timeline"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:hint="Arrival time"
+                    app:layout_constraintStart_toEndOf="@id/txt_driver_ppk"
+                    app:layout_constraintTop_toBottomOf="@id/dest_address"
+                    app:layout_constraintWidth_percent="0.35"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_driver_timeline_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textSize="12dp"
+                        android:text="@={vm.getEstimatedArrival()}"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+               <com.google.android.material.button.MaterialButton
+                   android:id="@+id/accept_button"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/txt_driver_ppk"
+                    android:layout_marginTop="8dp"
+                   android:layout_marginLeft="32dp"
+                   android:layout_marginRight="32dp"
+
+                   android:text="Accept Ride"
+                   android:textAllCaps="false"
+                   android:onClick="goNext"
+
+                   >
+               </com.google.android.material.button.MaterialButton>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -190,7 +364,7 @@
 
 
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

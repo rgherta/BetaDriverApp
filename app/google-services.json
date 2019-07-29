@@ -68,6 +68,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "756014264865-c4aa6b1bqcbtduqr0dvqij46le7l7hkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ride.driverapp",
+            "certificate_hash": "59d1104534c6b0c0fb31f3da997a41cae9092ee4"
+          }
+        },
+        {
           "client_id": "756014264865-g8pipgi9e20i6168ofv4dmmdhjv058ql.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

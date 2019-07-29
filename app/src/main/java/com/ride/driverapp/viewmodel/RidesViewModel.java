@@ -39,16 +39,19 @@ public class RidesViewModel extends AndroidViewModel {
     private MutableLiveData<String> estimation = new MutableLiveData<>();
     private LiveData<DriverContract> accountData = new MutableLiveData<>();
 
-    private MutableLiveData<Boolean> fabVisibility = new MutableLiveData<>();
     private MutableLiveData<Boolean> listVisibility = new MutableLiveData<>();
+
+    private MutableLiveData<String> estimatedArrival = new MutableLiveData<>();
+    private MutableLiveData<String> estimatedPrice = new MutableLiveData<>();
+    private MutableLiveData<Boolean> showDetails = new MutableLiveData<>();
 
 
     public RidesViewModel(@NonNull Application application) {
         super(application);
         ridesRepository = new RidesRepository(application);
         apiService = ApiServiceGenerator.createService(IApiService.class, application);
-        this.fabVisibility.postValue(false);
         this.listVisibility.postValue(true);
+        this.showDetails.postValue(false);
     }
 
 
@@ -79,9 +82,8 @@ public class RidesViewModel extends AndroidViewModel {
         String estimatedPrice = (String) TextUtils.concat( String.valueOf(  Math.round( ( adapterItem.getDistance() / 1000) * accountPpk) ) , " ", accountCurrency);
         this.getEstimation().setValue( estimatedPrice );
 
-        this.getFabVisibility().postValue(true);
+        //this.getShowDetails().postValue(true);
     }
-
 
     public MutableLiveData<String> getDuration() {
         return duration;
@@ -150,18 +152,35 @@ public class RidesViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<Boolean> getFabVisibility() {
-        return fabVisibility;
-    }
-
-    public void setFabVisibility(MutableLiveData<Boolean> fabVisibility) {
-        this.fabVisibility = fabVisibility;
-    }
-
     public MutableLiveData<Boolean> getListVisibility() { return listVisibility; }
 
     public void setListVisibility(MutableLiveData<Boolean> listVisibility) {
         this.listVisibility = listVisibility;
     }
 
+
+    public MutableLiveData<String> getEstimatedArrival() {
+        return estimatedArrival;
+    }
+
+    public void setEstimatedArrival(MutableLiveData<String> estimatedArrival) {
+        this.estimatedArrival = estimatedArrival;
+    }
+
+    public MutableLiveData<Boolean> getShowDetails() {
+        return showDetails;
+    }
+
+    public void setShowDetails(MutableLiveData<Boolean> showDetails) {
+        this.showDetails = showDetails;
+    }
+
+
+    public MutableLiveData<String> getEstimatedPrice() {
+        return estimatedPrice;
+    }
+
+    public void setEstimatedPrice(MutableLiveData<String> estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
+    }
 }

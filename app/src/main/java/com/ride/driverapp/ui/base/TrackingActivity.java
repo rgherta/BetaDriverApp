@@ -1,5 +1,6 @@
 package com.ride.driverapp.ui.base;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,23 +11,47 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.ride.driverapp.BuildConfig;
 import com.ride.driverapp.R;
+import com.ride.driverapp.viewmodel.RegViewModel;
 
 public class TrackingActivity extends FragmentActivity {
+
+    private static final String TAG = RegViewModel.class.getSimpleName();
 
     protected boolean mLocationPermissionGranted = false;
     protected SharedPreferences sharedPreferences;
     protected String mPackageName;
     protected int mPackageCode;
+    protected FusedLocationProviderClient mFusedLocationProviderClient;
+
+    protected LatLng mDefaultLocation = new LatLng(44.439663, 26.096306);
+    protected Location mLastknownLocation;
+    protected static final int DEFAULT_ZOOM = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         try {
             mPackageName = this.getPackageManager().getPackageInfo(this.getPackageName(), 0).versionName;
@@ -58,6 +83,7 @@ public class TrackingActivity extends FragmentActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true;
+            getDeviceLocation();
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -85,5 +111,35 @@ public class TrackingActivity extends FragmentActivity {
         final AlertDialog alert = builder.create();
         alert.show();
     }
+
+
+
+    private void getDeviceLocation() {
+
+        try {
+            //TODO: if no permissions
+            if (mLocationPermissionGranted) {
+                    mFusedLocationProviderClient.getLastLocation()
+
+                     .addOnSuccessListener(this, location -> {
+
+                        if (location != null) {
+                           mLastknownLocation = location;
+                        }
+
+                     })
+
+                     .addOnFailureListener(this, e -> {
+                         Log.e("Failure: %s", e.getMessage());
+                     });
+            }
+
+        } catch(SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+
+    };
+
+
 
 }

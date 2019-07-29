@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,9 +34,12 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
         public MyViewHolder(@NonNull View itemView, ArrayList<RideContract> rideList) {
             super(itemView);
 
-                destination = itemView.findViewById(R.id.destination);
-                pickup = itemView.findViewById(R.id.pickup);
                 customer = itemView.findViewById(R.id.customer_name);
+
+                ImageView arrowDown = itemView.findViewById(R.id.arrowdown);
+                arrowDown.setOnClickListener(v -> {
+                    viewModel.getShowDetails().postValue(true);
+                });
 
                 itemView.setOnClickListener(v -> {
                     int adapterPosition = getAdapterPosition();
@@ -71,9 +75,8 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
         RideContract ride = mDataset.get(position);
         Log.w(TAG, ride.toString());
 
-        holder.pickup.setText(ride.getPickupStr());
-        holder.destination.setText(ride.getDestinationStr());
-        holder.customer.setText(ride.getCustomer_name().split(" ",2)[0]);
+        //holder.customer.setText(ride.getCustomer_name().split(" ",2)[0]);
+        holder.customer.setText(ride.getCustomer_name());
 
         //TODO: something something
 

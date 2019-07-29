@@ -15,11 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/motion_scene" />
 
-        <activity android:name=".TrackingActivity" />
+        <activity android:name=".ui.base.TrackingActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,7 +69,7 @@
                 android:value=".ui.registration.CustomLoginActivity" />
         </activity>
         <activity
-            android:name=".ui.RideConfirmation"
+            android:name=".ui.RideConfirmationActivity"
             android:label="@string/activity_name_ride"
             android:parentActivityName=".ui.registration.CustomLoginActivity">
             <meta-data
@@ -88,12 +85,12 @@
             </intent-filter>
         </service>
         <!--
-     The API key for Google Maps-based APIs is defined as a string resource.
-     (See the file "res/values/google_maps_api.xml").
-     Note that the API key is linked to the encryption key used to sign the APK.
-     You need a different API key for each encryption key, including the release key that is used to
-     sign the APK for publishing.
-     You can define the keys for the debug and release targets in src/debug/ and src/release/.
+         The API key for Google Maps-based APIs is defined as a string resource.
+         (See the file "res/values/google_maps_api.xml").
+         Note that the API key is linked to the encryption key used to sign the APK.
+         You need a different API key for each encryption key, including the release key that is used to
+         sign the APK for publishing.
+         You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
