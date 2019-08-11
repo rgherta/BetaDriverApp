@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.ride.driverapp.db.DriverAppDatabase;
 import com.ride.driverapp.db.IDriverDao;
 import com.ride.driverapp.model.DriverContract;
+import com.ride.driverapp.services.GeohashUtils;
 import com.ride.driverapp.services.api.ApiServiceGenerator;
 import com.ride.driverapp.services.api.IApiService;
 import com.ride.driverapp.services.tasks.InsertDriver;
@@ -53,6 +54,7 @@ public class FormRepository {
 
 
     public void sendDriverData(DriverContract driver, Context ctx){
+        driver.setHashLocation( GeohashUtils.encode(driver.getLoc().get("lat"), driver.getLoc().get("long")) );
 
         IApiService apiService = ApiServiceGenerator.createService(IApiService.class, ctx);
         Call<DriverContract> call = apiService.addUser(driver);

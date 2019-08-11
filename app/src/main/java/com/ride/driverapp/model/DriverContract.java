@@ -1,11 +1,16 @@
 package com.ride.driverapp.model;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.util.StringUtil;
 
 import com.google.gson.annotations.SerializedName;
+import com.ride.driverapp.services.GeohashUtils;
 
 import java.util.HashMap;
 
@@ -64,6 +69,8 @@ public class DriverContract {
     @SerializedName("loc")
     private HashMap<String,Double> loc;
 
+    @SerializedName("hashloc")
+    private String hashLocation;
 
 
     public String getUid() {
@@ -196,6 +203,14 @@ public class DriverContract {
     }
 
 
+    public String getHashLocation() {
+        return hashLocation;
+    }
+
+    public void setHashLocation(String hashLocation) {
+        this.hashLocation = hashLocation;
+    }
+
     public DriverContract(String uid, String fcmToken, String fullName, int category, String email, String carModel, String regPlate, String phone
             , HashMap<String, Boolean> payment, String city, Double ppk, String curr, int rating, int rides, int status, HashMap<String, Double> loc ) {
         this.uid = uid;
@@ -214,6 +229,28 @@ public class DriverContract {
         this.rides = rides;
         this.status = status;
         this.loc = loc;
+        this.hashLocation="";
+       // this.hashLocation = GeohashUtils.encode(loc.get("lat"), loc.get("long"));
+    }
+
+    public String toString(){
+        return (String) TextUtils.concat(
+                this.uid
+                , this.fcmToken
+                , this.fullName
+                , String.valueOf(this.category)
+                , this.email
+                , this.carModel
+                , this.regPlate
+                , this.phone
+                , this.city
+                , String.valueOf(this.ppk)
+                , this.curr
+                , String.valueOf(this.rating)
+                , String.valueOf(this.rides)
+                , String.valueOf(this.status)
+
+        );
     }
 
 

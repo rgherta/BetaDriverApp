@@ -125,6 +125,10 @@ public class TrackingActivity extends FragmentActivity {
 
                         if (location != null) {
                            mLastknownLocation = location;
+                        } else {
+                            mLastknownLocation = new Location("myprovider");
+                            mLastknownLocation.setLatitude( mDefaultLocation.latitude );
+                            mLastknownLocation.setLongitude( mDefaultLocation.longitude );
                         }
 
                      })

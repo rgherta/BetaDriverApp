@@ -51,7 +51,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     private RecyclerView.LayoutManager ridesLayoutManager;
     private ArrayList<RideContract> ridesArray;
 
-    private DriverContract accountData;
+    protected DriverContract accountData;
 
 
     @Override
@@ -101,7 +101,8 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
 
                 viewModel.getAccountData().observe( this, driver -> {
-                        accountData = driver;
+                        this.accountData = driver;
+                        Log.w("MYDRIVER", this.accountData.toString())
 ;                });
 
                 viewModel.getEstimatedArrival().observe(this, time -> {
