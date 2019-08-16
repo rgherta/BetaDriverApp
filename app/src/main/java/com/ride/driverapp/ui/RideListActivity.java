@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
 import com.ride.driverapp.R;
 import com.ride.driverapp.model.DriverContract;
+import com.ride.driverapp.services.MyFirebaseMessagingService;
 import com.ride.driverapp.ui.adapters.RidesAdapter;
 import com.ride.driverapp.ui.base.TrackingActivity;
 import com.ride.driverapp.model.RideContract;
@@ -139,6 +140,11 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
 
         getAvailableRides();
+
+        MyFirebaseMessagingService.systemBus.observe(this, o -> {
+            if(o == MyFirebaseMessagingService.ride.REFRESH) getAvailableRides();
+        });
+
 
     }
 

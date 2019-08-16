@@ -34,13 +34,9 @@ public class RideConfirmationActivity extends TrackingActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mLastknownLocation.getLatitude(), mLastknownLocation.getLongitude() ), DEFAULT_ZOOM));
-
-
 
     }
 
