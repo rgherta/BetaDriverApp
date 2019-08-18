@@ -12,6 +12,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.util.StringUtil;
 
 import com.google.gson.JsonObject;
+import com.ride.driverapp.model.AcceptanceContract;
 import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.model.RideContract;
 import com.ride.driverapp.services.repository.RidesRepository;
@@ -44,6 +45,7 @@ public class RidesViewModel extends AndroidViewModel {
     private MutableLiveData<String> estimatedArrival = new MutableLiveData<>();
     private MutableLiveData<String> estimatedPrice = new MutableLiveData<>();
     private MutableLiveData<Boolean> showDetails = new MutableLiveData<>();
+
 
 
     public RidesViewModel(@NonNull Application application) {
@@ -183,4 +185,38 @@ public class RidesViewModel extends AndroidViewModel {
     public void setEstimatedPrice(MutableLiveData<String> estimatedPrice) {
         this.estimatedPrice = estimatedPrice;
     }
+
+    public MutableLiveData<Boolean> rideAccept(){
+
+        MutableLiveData<Boolean> rideAcceptance = new MutableLiveData<>();
+
+        RideContract rideContract = adapterItem.getValue();
+        DriverContract account = accountData.getValue();
+        String price = estimatedPrice.getValue();
+        String arrival = estimatedArrival.getValue();
+
+        AcceptanceContract contract = new AcceptanceContract( rideContract.getUid(), account.getUid(), arrival, price );
+        Log.w("callme:", contract.toString());
+
+        Call<AcceptanceContract> call = apiService.acceptRide(contract);
+        call.enqueue(new Callback<AcceptanceContract>() {
+
+            @Override
+            public void onResponse(Call<AcceptanceContract> call, Response<AcceptanceContract> response) {
+                Log.w("response", response.toString());
+                rideAcceptance.postValue(true);
+
+            }
+
+            @Override
+            public void onFailure(Call<AcceptanceContract> call, Throwable t) {
+                Log.w("responserror", t);
+                rideAcceptance.postValue(false);
+            }
+        });
+
+        return rideAcceptance;
+
+    }
+
 }

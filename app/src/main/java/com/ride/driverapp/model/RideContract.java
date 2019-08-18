@@ -8,6 +8,9 @@ import java.util.HashMap;
 
 public class RideContract {
 
+    @SerializedName("uid")
+    private String uid;
+
     @SerializedName("customer")
     private String customer;
 
@@ -142,6 +145,14 @@ public class RideContract {
 
     public void setCustomer_name(String customer_name) {
         this.customer_name = customer_name;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String toString(){

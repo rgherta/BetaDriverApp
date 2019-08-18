@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.databinding.DataBindingUtil;
@@ -54,12 +55,10 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
     protected DriverContract accountData;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ride_list);
-
 
         //Obtain viewmodel from ViewModelProviders through lifecycle library
         viewModel = ViewModelProviders.of(this).get(RidesViewModel.class);
@@ -69,12 +68,10 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         //Bind layout with viewmodel
         binding.setVm(viewModel);
 
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         mapView = findViewById(R.id.map_info);
         mapView.onCreate(null);
         mapView.getMapAsync(this);
-
 
 //        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 //        NavigationView navigationView = findViewById(R.id.nav_view);
@@ -92,14 +89,10 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 //                    return true;
 //                });
 
-
-
         TextInputEditText til = findViewById(R.id.txt_driver_timeline_value);
         til.setOnFocusChangeListener((view, isFocused) -> {
             if (isFocused) showTimePickerDialog(view);
         });
-
-
 
                 viewModel.getAccountData().observe( this, driver -> {
                         this.accountData = driver;
@@ -111,9 +104,6 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
                     clearInputs();
 
                 });
-
-
-
     }
 
 
@@ -126,9 +116,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         AppCompatSpinner mySpinner = findViewById(R.id.driver_status_value);
         mySpinner.setAdapter(adapter);
 
-
         viewModel.setRegStatus(adapter.getCount() - 1);
-
         viewModel.getRegStatus().observe(this, status -> {
             status += 5;
             JsonObject newStatus = new JsonObject();
@@ -136,8 +124,6 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
             viewModel.updateStatus(newStatus);
 
         });
-
-
 
         getAvailableRides();
 
@@ -149,7 +135,6 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     }
 
     public void getAvailableRides() {
-
         recyclerView = findViewById(R.id.recycler_ride_list);
         recyclerView.setHasFixedSize(true);
         ridesLayoutManager = new LinearLayoutManager(this);
@@ -158,22 +143,12 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         ridesAdapter = new RidesAdapter(ridesArray, viewModel);
         recyclerView.setAdapter(ridesAdapter);
 
-//        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//            }
-//        });
-
-
         viewModel.getRides().observe(this, rideContracts -> {
             Log.w(TAG, rideContracts.toString());
             ridesArray.clear();
             ridesArray.addAll(rideContracts);
             ridesAdapter.notifyDataSetChanged();
         });
-
-
     }
 
 
@@ -191,12 +166,10 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         mMap.getUiSettings().setMapToolbarEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
 
-
         viewModel.getAdapterItem().observe(this, myRide -> {
             mMap.clear();
 
             List<LatLng> pointsArray = PolyUtil.decode( myRide.getPoints() );
-
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for(LatLng poi : pointsArray){
                 builder.include(poi);
@@ -207,10 +180,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
             lineOptions.addAll(pointsArray);
 
             mMap.addPolyline(lineOptions);
-
             mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, 50));
-
-
 
 
         });
@@ -228,8 +198,21 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     }
 
     public void goNext(View v){
-        Intent intent = new Intent(this, RideConfirmationActivity.class);
-        startActivity(intent);
+        viewModel.rideAccept().observe( this, success -> {
+            if(success){
+//                Intent intent = new Intent(this, RideConfirmationActivity.class);
+//                startActivity(intent);
+                clearInputs();
+                viewModel.getShowDetails().setValue(false);
+                viewModel.getEstimatedArrival().setValue("");
+                viewModel.getEstimatedPrice().setValue("");
+
+                Toast.makeText(this, "Ride Accepted", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

@@ -39,6 +39,9 @@ public class RidesAdapter  extends RecyclerView.Adapter<RidesAdapter.MyViewHolde
                 ImageView arrowDown = itemView.findViewById(R.id.arrowdown);
                 arrowDown.setOnClickListener(v -> {
                     viewModel.getShowDetails().postValue(true);
+                    int adapterPosition = getAdapterPosition();
+                    Log.w(TAG, "clicked: " + adapterPosition);
+                    viewModel.setAdapterItem(rideList.get(adapterPosition));
                 });
 
                 itemView.setOnClickListener(v -> {
