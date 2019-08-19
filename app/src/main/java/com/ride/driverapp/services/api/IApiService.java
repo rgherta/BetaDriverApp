@@ -23,6 +23,10 @@ public interface IApiService {
     @GET("users/driver")
     Call<DriverContract> getDriver(@Query("uid") String uid);
 
+    @Headers("Content-Type: application/json")
+    @POST("users/updatefcm")
+    Call<JsonObject> updateFcm(@Body JsonObject payload);
+
 
     @Headers("Content-Type: application/json")
     @POST("users/drivers/status")

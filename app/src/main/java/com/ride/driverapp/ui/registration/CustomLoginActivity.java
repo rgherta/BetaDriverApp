@@ -78,8 +78,9 @@ public class CustomLoginActivity extends TrackingActivity implements View.OnClic
                         sharedPreferences.edit().putString("AuthToken", token).commit();
                         //TODO: request db data and save locally
                         String uid = task.getUser().getUid();
-                        viewModel.getDriverData(uid, this);
 
+                        String fcmToken = sharedPreferences.getString("FcmToken", null);
+                        viewModel.getDriverData(uid, fcmToken, this);
 
                         Intent intent = new Intent(this, RideListActivity.class);
                         startActivity(intent);

@@ -59,7 +59,6 @@
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/driver_status_value"
-
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="8dp"

@@ -37,10 +37,8 @@ public class RegViewModel extends AndroidViewModel {
 
     }
 
-    public void getDriverData(String uid, Context context){
-
-        FormRepository.getInstance().getDriverData(uid, context);
-
+    public void getDriverData(String uid, String fcm, Context context){
+        FormRepository.getInstance().getDriverData(uid, fcm, context);
     }
 
 

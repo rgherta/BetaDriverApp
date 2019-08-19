@@ -7,6 +7,7 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.JsonObject;
 import com.ride.driverapp.db.DriverAppDatabase;
 import com.ride.driverapp.db.IDriverDao;
 import com.ride.driverapp.model.DriverContract;
@@ -78,7 +79,7 @@ public class FormRepository {
     }
 
 
-    public void getDriverData(String uid, Context ctx){
+    public void getDriverData(String uid, String fcm, Context ctx){
 
         IApiService apiService = ApiServiceGenerator.createService(IApiService.class, ctx);
         Call<DriverContract> call = apiService.getDriver(uid);
@@ -87,13 +88,41 @@ public class FormRepository {
             @Override
             public void onResponse(Call<DriverContract> call, Response<DriverContract> response) {
                 Log.w("response", response.toString());
+                DriverContract responseData = (DriverContract) response.body();
                 DriverAppDatabase db = DriverAppDatabase.getDatabase(ctx);
-                if(response.isSuccessful()) new InsertDriver(db.driverDao()).execute((DriverContract) response.body());
+                if(response.isSuccessful()) {
+                    if(!responseData.getFcmToken().equals(fcm)) updateFcm(uid, fcm, ctx);
+                    new InsertDriver(db.driverDao()).execute(responseData);
+                }
 
             }
 
             @Override
             public void onFailure(Call<DriverContract> call, Throwable t) {
+                Log.w("responserror", t);
+            }
+        });
+
+    }
+
+
+
+    public void updateFcm(String uid, String fcm, Context ctx){
+
+        IApiService apiService = ApiServiceGenerator.createService(IApiService.class, ctx);
+        JsonObject payload = new JsonObject();
+        payload.addProperty("uid",uid);
+        payload.addProperty("fcm", fcm);
+        Call<JsonObject> call = apiService.updateFcm(payload);
+        call.enqueue(new Callback<JsonObject>() {
+
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.w("response", response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
                 Log.w("responserror", t);
             }
         });

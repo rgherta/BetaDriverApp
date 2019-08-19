@@ -26,6 +26,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     public static MutableLiveData chat = new MutableLiveData<String>();
     public static MutableLiveData systemBus = new MutableLiveData<String>();
+    public static MutableLiveData rideBus = new MutableLiveData<String>();
 
 
     /**
@@ -62,6 +63,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.w(TAG, "Message data payload: " + remoteMessage.getData());
             Map mydata = remoteMessage.getData();
             String mType =  mydata.get("type").toString();
+            String mMessage =  mydata.get("message").toString();
+
 
 
             switch (mType){
@@ -71,6 +74,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 case "chat":
                    // if (chat.hasActiveObservers()) chat.postValue();
+                    break;
+
+                case "start":
+                    if (rideBus.hasActiveObservers()){
+                        rideBus.postValue(mMessage);
+                    }
                     break;
 
             }

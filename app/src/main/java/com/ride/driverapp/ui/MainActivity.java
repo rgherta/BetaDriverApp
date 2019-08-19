@@ -69,6 +69,7 @@ public class MainActivity extends TrackingActivity implements View.OnClickListen
 
                     // Get new Instance ID token
                     String token = task.getResult().getToken();
+                    Log.w(TAG, "token is:" + token);
 
                     SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
                     preferencesEditor.putString("FcmToken", token);

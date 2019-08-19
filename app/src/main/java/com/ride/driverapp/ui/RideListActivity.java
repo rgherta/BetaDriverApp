@@ -96,7 +96,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
                 viewModel.getAccountData().observe( this, driver -> {
                         this.accountData = driver;
-                        Log.w("MYDRIVER", this.accountData.toString())
+                        //Log.w("MYDRIVER", this.accountData.toString())
 ;                });
 
                 viewModel.getEstimatedArrival().observe(this, time -> {
@@ -128,7 +128,20 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         getAvailableRides();
 
         MyFirebaseMessagingService.systemBus.observe(this, o -> {
+            Log.w(TAG, "Notification REFRESH: ");
             if(o == MyFirebaseMessagingService.ride.REFRESH) getAvailableRides();
+        });
+
+        MyFirebaseMessagingService.rideBus.observe(this, o -> {
+            Log.w(TAG, "Notification START: ");
+                Intent intent = new Intent(this, RideConfirmationActivity.class);
+                startActivity(intent);
+
+        });
+
+        viewModel.getRegStatus().observe(this, o -> {
+            getAvailableRides();
+            Log.w(TAG, "Changed status: refreshing list");
         });
 
 
@@ -156,6 +169,9 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
     public void openDrawer(View v){
 //        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 //        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
+    public void clickSpinner(View v){
     }
 
     @Override

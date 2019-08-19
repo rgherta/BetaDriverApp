@@ -1,5 +1,6 @@
 package com.ride.driverapp.ui;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 
@@ -36,6 +37,14 @@ public class RideConfirmationActivity extends TrackingActivity implements OnMapR
         mMap = googleMap;
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
+
+        //TODO: handle this shit in trackingactivity, got null here, was ok on a second trial
+        if(mLastknownLocation == null) {
+            mLastknownLocation = new Location("myprovider");
+            mLastknownLocation.setLatitude( mDefaultLocation.latitude );
+            mLastknownLocation.setLongitude( mDefaultLocation.longitude );
+        }
+
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mLastknownLocation.getLatitude(), mLastknownLocation.getLongitude() ), DEFAULT_ZOOM));
 
     }
