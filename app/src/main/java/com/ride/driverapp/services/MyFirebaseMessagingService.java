@@ -1,16 +1,26 @@
 package com.ride.driverapp.services;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.ride.driverapp.BuildConfig;
+import com.ride.driverapp.R;
+import com.ride.driverapp.model.AcceptanceContract;
+import com.ride.driverapp.model.MessageContract;
 import com.ride.driverapp.model.RideContract;
 import com.ride.driverapp.services.api.ApiServiceGenerator;
 import com.ride.driverapp.services.api.IApiService;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import retrofit2.Call;
@@ -26,7 +36,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
     public static MutableLiveData chat = new MutableLiveData<String>();
     public static MutableLiveData systemBus = new MutableLiveData<String>();
-    public static MutableLiveData rideBus = new MutableLiveData<String>();
+    public static MutableLiveData rideBus = new MutableLiveData<AcceptanceContract>();
 
 
     /**
@@ -63,9 +73,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.w(TAG, "Message data payload: " + remoteMessage.getData());
             Map mydata = remoteMessage.getData();
             String mType =  mydata.get("type").toString();
-            String mMessage =  mydata.get("message").toString();
-
-
 
             switch (mType){
                 case "refresh":
@@ -73,12 +80,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     break;
 
                 case "chat":
-                   // if (chat.hasActiveObservers()) chat.postValue();
+                    MessageContract newMessage = new MessageContract( mydata.get("message").toString()
+                            , mydata.get("sender").toString()
+                            , mydata.get("receiver").toString()
+                            , new Date((String) mydata.get("timestamp"))
+                            , mydata.get("ride").toString()
+                    );
+                    newMessage.mType = "incomming";
+                    if (chat.hasActiveObservers()) chat.postValue(newMessage);
                     break;
 
                 case "start":
                     if (rideBus.hasActiveObservers()){
-                        rideBus.postValue(mMessage);
+                        String mRide =  mydata.get("ride").toString();
+                        String mCustomer =  mydata.get("customer").toString();
+                        AcceptanceContract myContract = new AcceptanceContract(mRide, mCustomer, "", "");
+                        rideBus.postValue(myContract);
                     }
                     break;
 
@@ -154,6 +171,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      */
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
+
+        SharedPreferences sharedPreferences = getSharedPreferences( getString(R.string.pref_file), MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("FcmToken", token);
+        editor.commit();
+
     }
 
     /**

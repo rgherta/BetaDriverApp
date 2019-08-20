@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.JsonObject;
 import com.google.maps.android.PolyUtil;
 import com.ride.driverapp.R;
+import com.ride.driverapp.model.AcceptanceContract;
 import com.ride.driverapp.model.DriverContract;
 import com.ride.driverapp.services.MyFirebaseMessagingService;
 import com.ride.driverapp.ui.adapters.RidesAdapter;
@@ -104,6 +105,18 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
                     clearInputs();
 
                 });
+
+
+        MyFirebaseMessagingService.systemBus.observe(this, o -> {
+            Log.w(TAG, "Notification REFRESH: ");
+            if(o == MyFirebaseMessagingService.ride.REFRESH) getAvailableRides();
+        });
+
+        MyFirebaseMessagingService.rideBus.observe(this, o -> {
+            Log.w(TAG, "Notification START: ");
+            Intent intent = new Intent(this, RideConfirmationActivity.class);
+            startActivity(intent);
+        });
     }
 
 
@@ -127,17 +140,7 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
         getAvailableRides();
 
-        MyFirebaseMessagingService.systemBus.observe(this, o -> {
-            Log.w(TAG, "Notification REFRESH: ");
-            if(o == MyFirebaseMessagingService.ride.REFRESH) getAvailableRides();
-        });
 
-        MyFirebaseMessagingService.rideBus.observe(this, o -> {
-            Log.w(TAG, "Notification START: ");
-                Intent intent = new Intent(this, RideConfirmationActivity.class);
-                startActivity(intent);
-
-        });
 
         viewModel.getRegStatus().observe(this, o -> {
             getAvailableRides();

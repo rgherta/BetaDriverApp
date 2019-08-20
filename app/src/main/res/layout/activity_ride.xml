@@ -7,11 +7,17 @@
 
     </data>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.RideConfirmationActivity"
+        >
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.RideConfirmationActivity">
+
 
 
         <fragment
@@ -49,11 +55,16 @@
             android:text="In progress"
             android:textColor="#fff"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_opensettings"
+            app:layout_constraintBottom_toBottomOf="@id/btn_opensettings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <include layout="@layout/chat_bottom_sheet" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

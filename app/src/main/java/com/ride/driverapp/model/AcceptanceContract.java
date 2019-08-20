@@ -20,6 +20,23 @@ public class AcceptanceContract {
     @SerializedName("price")
     private String estimatedPrice;
 
+
+    public String getRide() {
+        return ride;
+    }
+
+    public String getDriver() {
+        return driver;
+    }
+
+    public String getEstimatedArrival() {
+        return estimatedArrival;
+    }
+
+    public String getEstimatedPrice() {
+        return estimatedPrice;
+    }
+
     public AcceptanceContract(String ride, String driver, String arrival, String price ){
         this.ride = ride;
         this.driver = driver;

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ride.driverapp.model.AcceptanceContract;
 import com.ride.driverapp.model.DriverContract;
+import com.ride.driverapp.model.MessageContract;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -41,6 +42,9 @@ public interface IApiService {
     @POST("rides/driver/accept")
     Call<AcceptanceContract> acceptRide(@Body AcceptanceContract contract);
 
+    @Headers("Content-Type: application/json")
+    @POST("messages/send")
+    Call<MessageContract> sendMessage(@Body MessageContract newMessage);
 
 
 
