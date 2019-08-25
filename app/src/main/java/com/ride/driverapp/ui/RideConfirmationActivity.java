@@ -92,13 +92,14 @@ public class RideConfirmationActivity extends TrackingActivity implements OnMapR
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         //TODO: handle this shit in trackingactivity, got null here, was ok on a second trial
-        if(mLastknownLocation == null) {
-            mLastknownLocation = new Location("myprovider");
-            mLastknownLocation.setLatitude( mDefaultLocation.latitude );
-            mLastknownLocation.setLongitude( mDefaultLocation.longitude );
-        }
+//        if(mLastknownLocation.getValue() == null) {
+//            mLastknownLocation = new Location("myprovider");
+//            mLastknownLocation.setLatitude( mDefaultLocation.latitude );
+//            mLastknownLocation.setLongitude( mDefaultLocation.longitude );
+//
+//        }
 
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mLastknownLocation.getLatitude(), mLastknownLocation.getLongitude() ), DEFAULT_ZOOM));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng( mLastknownLocation.getValue().getLatitude(), mLastknownLocation.getValue().getLongitude() ), DEFAULT_ZOOM));
         mMap.setPadding(50,50,50,180);
     }
 

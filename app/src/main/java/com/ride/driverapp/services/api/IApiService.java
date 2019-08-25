@@ -46,6 +46,10 @@ public interface IApiService {
     @POST("messages/send")
     Call<MessageContract> sendMessage(@Body MessageContract newMessage);
 
+    @Headers("Content-Type: application/json")
+    @POST("users/updateloc")
+    Call<JsonObject>  updateLoc(@Body JsonObject location);
+
 
 
 }

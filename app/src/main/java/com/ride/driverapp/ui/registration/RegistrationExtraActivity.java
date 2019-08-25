@@ -128,8 +128,8 @@ public class RegistrationExtraActivity extends TrackingActivity implements View.
                                 payment.put("paypal", viewModel.getRegPayPal().getValue());
 
                                 HashMap<String, Double> loc = new HashMap<>();
-                                loc.put("lat", mLastknownLocation.getLatitude());
-                                loc.put("long", mLastknownLocation.getLongitude());
+                                loc.put("lat", mLastknownLocation.getValue().getLatitude());
+                                loc.put("long", mLastknownLocation.getValue().getLongitude());
 
 
                                 DriverContract driver = new DriverContract( auth.getUid(), fcmToken, viewModel.getRegFullname().getValue(), 7

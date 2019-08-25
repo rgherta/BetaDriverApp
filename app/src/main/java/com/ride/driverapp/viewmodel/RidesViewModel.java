@@ -154,6 +154,25 @@ public class RidesViewModel extends AndroidViewModel {
     }
 
 
+    public void updateLocation(JsonObject location){
+        Call<JsonObject> call = apiService.updateLoc(location);
+        call.enqueue(new Callback<JsonObject>() {
+
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.w("response", response.toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.w("responserror", t);
+            }
+        });
+    }
+
+
+
     public MutableLiveData<Boolean> getListVisibility() { return listVisibility; }
 
     public void setListVisibility(MutableLiveData<Boolean> listVisibility) {

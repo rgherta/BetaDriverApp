@@ -131,9 +131,12 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
 
         viewModel.setRegStatus(adapter.getCount() - 1);
         viewModel.getRegStatus().observe(this, status -> {
-            status += 5;
+            if(status != 7){
+                startUpdates();
+            } else { stopUpdates(); }
+
             JsonObject newStatus = new JsonObject();
-            newStatus.addProperty("status", status);
+            newStatus.addProperty("status", status.toString());
             viewModel.updateStatus(newStatus);
 
         });
@@ -263,4 +266,26 @@ public class RideListActivity extends TrackingActivity implements OnMapReadyCall
         viewModel.getEstimatedArrival().setValue("");
         viewModel.getEstimatedPrice().setValue("");
     }
+
+
+    private void startUpdates(){
+        super.startLocationUpdates();
+        mLastknownLocation.observe(this, location -> {
+            JsonObject newlocation = new JsonObject();
+            newlocation.addProperty("lat", location.getLatitude());
+            newlocation.addProperty("long", location.getLongitude());
+            newlocation.addProperty("alt", location.getAltitude());
+            newlocation.addProperty("bearing", location.getBearing());
+            newlocation.addProperty("speed", location.getSpeed());
+            viewModel.updateLocation(newlocation);
+        });
+    }
+
+    private void stopUpdates(){
+        super.stopLocationUpdates();
+        mLastknownLocation.removeObservers(this);
+    }
+
+
+
 }
