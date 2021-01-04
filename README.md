@@ -26,5 +26,7 @@ Created using Android jetpack library
 
 
 ## TBD
-Solve remaining issues from the process map
-<img width="350px" src="https://raw.githubusercontent.com/rgherta/BetaDriverApp/master/proc2.jpg" alt="map" title="process map" />
+
+* Solve remaining issues from the process map
+
+<img src="https://raw.githubusercontent.com/rgherta/BetaDriverApp/master/proc2.jpg" alt="map" title="process map" />
